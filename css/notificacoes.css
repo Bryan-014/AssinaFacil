@@ -1,0 +1,44 @@
+.cont {
+    overflow-y: hidden !important;
+}
+
+.list-cont {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 6px;
+    max-height: 68vh;
+    overflow-y: auto;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 8px;
+}
+
+.notification {
+    border-radius: 12px;
+    display: flex;
+    background-color: var(--primary-color);
+    padding: 12px;
+    box-shadow: var(--shadow-1);
+    align-items: center;
+
+    & .notf-icon svg {
+        width: 38px;
+        height: 38px;
+        color: var(--text-color-2);
+        margin-top: 4px;
+        margin-right: 8px;
+    }
+    
+    & .notf-texts {        
+        color: var(--text-color-2);
+
+        & p {
+            font-size: 12px;
+        }
+    }
+}
