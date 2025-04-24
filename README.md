@@ -1,6 +1,6 @@
-# 📘 Visão Geral do Sistema
+# 📘 Visão Geral do Assina Fácil
 
-Este sistema é uma plataforma digital voltada para a gestão de clientes, serviços e pagamentos, com foco em três perfis de usuários: Administrador, Revendedor e Cliente. A aplicação é dividida em dois ambientes principais para melhor segmentação e controle de acesso.
+O Assina Fácil é uma plataforma digital voltada para a gestão de clientes, serviços e pagamentos, com foco em três perfis de usuários: Administrador, Revendedor e Cliente. A aplicação é dividida em dois ambientes principais para melhor segmentação e controle de acesso.
 
 ---
 
