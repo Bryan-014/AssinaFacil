@@ -1,7 +1,7 @@
 :root {
     --tom: 240;
     --primary-color: hsl(var(--tom), 10%, 10%, 100%);
-    --primary-dark-color: hsl(var(--tom), 15%, 37%);
+    --primary-dark-color: hsl(var(--tom), 35%, 10%);
     --light-color: hsl(var(--tom), 30%, 90%);
     --back-color: hsl(var(--tom), 100%, 100%, 100%);
     --shadow-1: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -17,7 +17,7 @@
 
 :root[data-theme="dark"] {
     --primary-color: hsl(var(--tom), 10%, 28%);       
-    --primary-dark-color: hsl(var(--tom), 35%, 60%);  
+    --primary-dark-color: hsl(var(--tom), 35%, 10%);  
     --light-color: hsl(var(--tom), 25%, 20%);         
     --back-color: hsl(var(--tom), 10%, 30%);          
     --shadow-1: rgba(27, 27, 27, 0.6) 0px 3px 8px;       

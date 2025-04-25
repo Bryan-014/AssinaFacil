@@ -161,11 +161,11 @@ body {
     margin-top: 46px;
     background-color: var(--back-color);
     border-radius: 16px;
-    padding: 24px;
-    padding-right: 6px;
+    padding-inline: 12px;
+    padding-block: 6px;
+    padding-top: 12px;
     width: 95%;
     height: auto;
-    max-height: calc(var(--vh, 1vh) * 100 - 140px);
 }
 
 .force-opacity-none {
@@ -245,6 +245,7 @@ body {
 
 .bread-crumb {
     display: flex;
+    margin-left: 4px;
     gap: 4px;
 
     & .link-page a {
@@ -263,7 +264,7 @@ body {
 }
 
 .exit {
-    margin-right: 24px;
+    margin-right: 12px;
     width: 24px;
     height: 24px;
     background-size: cover;

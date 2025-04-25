@@ -77,3 +77,46 @@
         font-size: 14px;
     }
 }
+
+.table {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--primary-dark-color);
+    border-radius: 3px;
+    
+    & .tbl-row {
+        display: flex;
+        
+        & .tbl-head, .tbl-cont {
+            border: .1px solid var(--primary-dark-color);            
+            padding: 4px;
+            width: 100%;
+        }
+
+        & .tbl-head {
+            background-color: var(--primary-dark-color);
+            color: var(--text-color-2);
+            font-weight: 800;
+            text-align: center;
+        }
+
+        & .tbl-cont.center {
+            display: flex;
+            justify-content: center;
+        }
+
+        & .tbl-btn {
+            background-color: var(--primary-dark-color);
+            color: var(--text-color-2);
+            text-decoration: none;
+            font-size: 12px;
+            padding: 4px;
+            font-weight: 800;
+            border-radius: 6px;
+        }
+    }
+
+    & .tbl-row.row-stripe {
+        background-color: var(--light-color);
+    }
+}
