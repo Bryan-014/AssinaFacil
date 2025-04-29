@@ -2,7 +2,7 @@ body {
     background-color: var(--light-color);
 }
 
-.container {
+.app-container {
     width: 100vw;
     height: 100vh;
     display: flex;

@@ -5,6 +5,9 @@
     --light-color: hsl(var(--tom), 30%, 90%);
     --back-color: hsl(var(--tom), 100%, 100%, 100%);
     --shadow-1: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    --grey-head: hsl(var(--tom), 10%, 10%, 100%);
+    --input-color-1: #000;
+    --input-color-2: #fff;
     --text-color-1: #000;
     --text-color-2: #fff;
     --text-color-3: #444;
@@ -21,6 +24,9 @@
     --light-color: hsl(var(--tom), 25%, 20%);         
     --back-color: hsl(var(--tom), 10%, 30%);          
     --shadow-1: rgba(27, 27, 27, 0.6) 0px 3px 8px;       
+    --grey-head: hsl(var(--tom), 10%, 10%, 100%);       
+    --input-color-1: #fff;       
+    --input-color-2: hsl(var(--tom), 10%, 30%);       
     --text-color-1: #fff;                             
     --text-color-2: #ccc;                             
     --text-color-3: #888;                             
