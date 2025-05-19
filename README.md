@@ -1,83 +1,61 @@
-# 📘 Visão Geral do Assina Fácil
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-O Assina Fácil é uma plataforma digital voltada para a gestão de clientes, serviços e pagamentos, com foco em três perfis de usuários: Administrador, Revendedor e Cliente. A aplicação é dividida em dois ambientes principais para melhor segmentação e controle de acesso.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
----
+## About Laravel
 
-## 🏗️ Estrutura do Sistema
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-O sistema será composto por dois ambientes principais:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-- **Painel Administrativo**: Interface exclusiva para o gestor do sistema (Administrador).
-- **Painel do Cliente**: Área exclusiva para os clientes finais, acessada mediante login e senha individual.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
----
+## Learning Laravel
 
-## 👥 Atores do Sistema
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-### Cliente
-- Criado a partir do cadastro feito por um Revendedor.
-- Pode visualizar e efetuar seus pagamentos pendentes.
-- Tem acesso ao seu histórico de pagamentos.
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-### Revendedor
-- Gerencia seus próprios clientes.
-- Tem acesso ao histórico completo de pagamentos dos clientes.
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-### Administrador
-- Acesso total ao sistema.
-- Gerencia os Revendedores.
-- Possui todas as permissões de um Revendedor.
+## Laravel Sponsors
 
----
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-## ✅ Casos de Uso
+### Premium Partners
 
-### 🔐 Autenticação
-- **Manter Autenticação**: Login e logout com chaves específicas para cada tipo de usuário.
+- **[Vehikl](https://vehikl.com)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Redberry](https://redberry.international/laravel-development)**
+- **[Active Logic](https://activelogic.com)**
 
-### 👥 Gestão de Usuários
-- **Manter Clientes**: O Revendedor pode cadastrar, editar, atualizar e excluir seus clientes.
-- **Manter Revendedores**: O Administrador pode cadastrar, editar e excluir Revendedores.
+## Contributing
 
-### 🛠️ Gestão de Serviços
-- **Manter Serviços**: O Revendedor pode gerenciar (cadastrar, editar, excluir) os serviços disponíveis.
-- **Contratar Serviço**: O Cliente pode contratar novos serviços pela plataforma.
-- **Cancelar Serviço**: O Cliente pode cancelar a contratação de um serviço.
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-### 💸 Pagamentos
-- **Visualizar Pagamentos Pendentes**: O Cliente pode ver os pagamentos que ainda não foram realizados.
-- **Efetuar Pagamento**: O Cliente pode realizar pagamentos via Pix.
-- **Visualizar Histórico de Pagamentos (Cliente)**: Acesso ao histórico pessoal de pagamentos.
-- **Visualizar Histórico Completo (Revendedor)**: Visualização completa dos pagamentos de todos os clientes do revendedor.
-- **Notificações de Pagamento**:
-  - O sistema notifica o **Revendedor** quando um cliente realiza um pagamento.
-  - O sistema notifica o **Cliente** quando o prazo de pagamento estiver próximo do vencimento.
+## Code of Conduct
 
----
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## ✅ Requisitos Funcionais
+## Security Vulnerabilities
 
-| Código | Descrição |
-|--------|-----------|
-| RF01 | Login com credenciais específicas para Clientes, Revendedores e Administradores |
-| RF02 | Logout seguro para todos os usuários |
-| RF03 | Cadastro de novos clientes pelo Revendedor |
-| RF04 | Edição de dados dos clientes pelo Revendedor |
-| RF05 | Exclusão de clientes pelo Revendedor |
-| RF06 | Acesso restrito à plataforma apenas para clientes cadastrados por um Revendedor |
-| RF07 | Cadastro de novos serviços pelo Revendedor |
-| RF08 | Edição de serviços pelo Revendedor |
-| RF09 | Exclusão de serviços pelo Revendedor |
-| RF10 | Cliente pode visualizar serviços disponíveis |
-| RF11 | Cliente pode contratar novos serviços |
-| RF12 | Cliente pode visualizar pagamentos pendentes |
-| RF13 | Cliente pode efetuar pagamentos via Pix |
-| RF14 | Cliente pode visualizar seu histórico de pagamentos |
-| RF15 | Cliente pode cancelar um serviço contratado |
-| RF16 | Revendedor pode visualizar histórico completo dos pagamentos de seus clientes |
-| RF17 | Revendedor pode visualizar lista de clientes com pagamentos pendentes |
-| RF18 | Administrador pode cadastrar, editar e excluir Revendedores |
-| RF19 | Apenas o Administrador tem acesso ao gerenciamento de Revendedores |
-| RF20 | Revendedor é notificado quando um cliente efetua um pagamento |
-| RF21 | Cliente é notificado quando o prazo de pagamento está próximo do vencimento |
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
