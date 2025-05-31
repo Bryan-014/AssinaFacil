@@ -1,0 +1,100 @@
+.complete-view {
+    display: flex;
+    justify-content: stretch;
+}
+
+.view-content {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.service-image {
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+
+    & img {
+        width: 100%;
+        border-radius: 16px;
+        box-shadow: var(--shadow-1);
+    }
+}
+
+.service-details {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+
+    & .title {
+        font-size: 32px;
+        margin-bottom: 0;
+        color: var(--content-text-color);
+    }
+
+    & .descricao {
+        font-size: 16px;
+        margin-bottom: 0;
+        color: var(--content-text-color);
+    }
+
+    & .price-content {
+        display: flex;
+        justify-content: end;
+        width: 25%;
+        align-items: end;
+
+        & .value-info {
+            padding: 8px;
+            background-color: var(--primary-dark-color);
+            color: var(--text-color-2);
+            border-radius: 12px;
+            font-weight: 800
+        }
+    }
+}
+
+.view-planos {
+    width: 60%;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.plano {
+    color: var(--text-color-2);
+    padding: 12px;
+    width: 100%;
+    border-radius: 26px;
+    background-color: var(--primary-dark-color);
+    box-shadow: var(--shadow-1);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.head-plano {
+    display: flex;
+    flex-direction: column;
+
+    & .duracao {
+        font-size: 30px;
+        font-weight: 800;
+    }
+}
+
+.assinatura-content {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    & .value {
+        font-size: 24px;
+        padding: 8px;
+        border-radius: 48px;
+        font-weight: 800;
+        color: var(--content-text-color);
+        background-color: var(--light-color);
+    } 
+}

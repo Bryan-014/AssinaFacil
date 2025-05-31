@@ -18,7 +18,8 @@ return new class extends Migration
             $table->float('base_price');
             $table->integer('base_duration');
             $table->enum('duration_type', ['diary', 'weekly', 'monthly', 'annualy']);
-            $table->foreignId('service_id')->constrained('services')->onDelete('cascade');
+            $table->uuid('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

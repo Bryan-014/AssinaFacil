@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('description');
             $table->json('body');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

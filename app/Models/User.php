@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'user',
         'email',
         'password',
+        'role_id',
+        'person_id',
     ];
 
     /**
@@ -44,6 +46,11 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'id';
     }
 
     public function notifications() {

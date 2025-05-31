@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->date('pay_date');
-            $table->foreignId('contract_id')->constrained('contracts')->onDelete('cascade');
+            $table->foreignUuid('contract_id')->constrained('contracts')->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });
