@@ -1,61 +1,58 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Assina Fácil
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 1. Visão Geral do Projeto
 
-## About Laravel
+### 1.1 Contextualização
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+No contexto da comercialização de sistemas e serviços digitais sob demanda ou por assinatura — como manutenção de sites, suporte técnico remoto, hospedagens ou SaaS — o **Assina Fácil** também se destaca como uma solução viável e estratégica. Pequenas e médias empresas que atuam na revenda ou no desenvolvimento de software frequentemente precisam gerenciar diversos contratos e cobranças mensais, o que, se feito de forma manual, aumenta o risco de erros e inadimplência.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Com o **Assina Fácil**, esses negócios passam a contar com uma plataforma centralizada que automatiza a gestão de clientes, pagamentos e serviços, promovendo escalabilidade e profissionalismo. Isso permite que o foco do gestor esteja no crescimento da carteira de clientes e na melhoria do serviço, e não nas tarefas burocráticas do dia a dia.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 1.2 Descrição do Produto do Projeto
 
-## Learning Laravel
+O **Assina Fácil** é uma plataforma web que tem como objetivo oferecer uma solução completa para empresas que prestam serviços mensais. O sistema é voltado à administração eficiente de clientes e finanças, com foco na organização e automação de cobranças recorrentes.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+O sistema será composto por dois ambientes principais:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Painel Administrativo**: Interface exclusiva para o gestor do sistema.
+- **Painel do Cliente**: Área exclusiva para os clientes finais, com acesso feito por login e senha individual.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1.3 Funcionalidades
 
-## Laravel Sponsors
+- **RF01**: O sistema deve permitir que todos os usuários (Clientes, Revendedores e Administradores) realizem login com credenciais específicas.
+- **RF02**: O sistema deve permitir que os usuários façam logout de forma segura.
+- **RF03**: O sistema deve permitir que o Revendedor cadastre novos clientes.
+- **RF04**: O sistema deve permitir que o Revendedor edite os dados dos seus clientes.
+- **RF05**: O sistema deve permitir que o Revendedor exclua clientes.
+- **RF06**: O sistema deve restringir o acesso de clientes apenas aos que estiverem cadastrados por um Revendedor.
+- **RF07**: O sistema deve permitir que o Revendedor cadastre novos serviços.
+- **RF08**: O sistema deve permitir que o Revendedor edite os serviços existentes.
+- **RF09**: O sistema deve permitir que o Revendedor exclua serviços.
+- **RF10**: O sistema deve permitir que o Cliente visualize a lista de serviços disponíveis para contratação.
+- **RF11**: O sistema deve permitir que o Cliente contrate novos serviços por meio da plataforma.
+- **RF12**: O sistema deve permitir que o Cliente visualize seus pagamentos pendentes.
+- **RF13**: O sistema deve permitir que o Cliente realize pagamentos via Pix diretamente pela plataforma.
+- **RF14**: O sistema deve permitir que o Cliente visualize seu histórico completo de pagamentos.
+- **RF15**: O sistema deve permitir que o Cliente cancele o contrato de algum serviço.
+- **RF16**: O sistema deve permitir que o Revendedor visualize o histórico completo de todos os pagamentos realizados por seus clientes.
+- **RF17**: O sistema deve permitir que o Revendedor visualize uma lista de clientes com pagamentos pendentes.
+- **RF18**: O sistema deve permitir que o Administrador cadastre, edite e exclua Revendedores.
+- **RF19**: O sistema deve garantir que apenas o Administrador tenha acesso às funções de gerenciamento de Revendedores.
+- **RF20**: O sistema deve notificar o Revendedor sempre que algum cliente efetuar algum pagamento.
+- **RF21**: O sistema deve notificar o Cliente quando o prazo de pagamento estiver acabando.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 2. Diagrama de Casos de Uso
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+![Diagrama De Casos de Uso](imgs/usecase.png)
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 3. Diagrama Físico de Banco de Dados
 
-## Code of Conduct
+![Diagrama Físico de Banco de Dados](imgs/database.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+> Projeto desenvolvido para automatizar e simplificar a gestão de serviços recorrentes em empresas de tecnologia.
