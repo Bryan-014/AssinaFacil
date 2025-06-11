@@ -16,7 +16,7 @@ class ValidClient
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == '1e0ba8e6-0c99-4bd3-9e9c-b89f33ed0fe0') {
+        if (Auth::check() && Auth::user()->role_id == env('CLIENT_ROLE_ID', 'role_id')) {
             return $next($request);
         }    
         return redirect('/login');

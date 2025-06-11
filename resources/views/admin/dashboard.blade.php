@@ -17,7 +17,7 @@
     <div>
         <div class="cont">
             <div class="main-info">
-                <div class="chart">
+                {{-- <div class="chart">
                     <div class="def-chart" id="myChart" style="width:100%; height:350px; margin-bottom: 6px;"></div>
                 </div>
                 <div class="more-info">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="def-chart" id="myChart2" style="width:100%; height:200px; margin-bottom: 6px;"></div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class Authenticate
+class ValidOnlyAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,9 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! Auth::check()) {
-            return redirect()->guest(route('login'));
-        }
-
-        return $next($request);
+        if (Auth::check() && Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
+            return $next($request);
+        }    
+        return redirect('/login');
     }
 }

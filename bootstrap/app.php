@@ -11,15 +11,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->append([
-            Illuminate\Cookie\Middleware\EncryptCookies::class,
-            Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            Illuminate\Session\Middleware\StartSession::class,
-            Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
-        ]);
-
         $middleware->alias([
+            'ValidOnlyAdmin' => App\Http\Middleware\ValidOnlyAdmin::class,
             'ValidAdmin' => App\Http\Middleware\ValidAdmin::class,
             'ValidClient' => App\Http\Middleware\ValidClient::class,
         ]);

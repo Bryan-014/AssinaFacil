@@ -1,23 +1,21 @@
-@extends('layouts.app')
+<form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <input  class="logoutbtn" type="submit" value="">
+</form>
+{{-- <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
 
-@section('css-resources')
-    @vite(['resources/css/reset.css', 'resources/css/components.css', 'resources/css/header.css', 'resources/css/table.css'])
-@endsection
-
-@section('header')
-    @include('layouts.navbar')   
-@endsection
-
-@section('aside-links')
-    @include('layouts.aside')   
-@endsection
-
-@section('cont-box')
-    <x-bread-crumb/>
-    <div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    {{ __("You're logged in!") }}
+                </div>
+            </div>
+        </div>
     </div>
-@endsection
-
-@section('js-resources')
-    @vite(['resources/js/app.js', 'resources/js/home.js'])
-@endsection
+</x-app-layout> --}}

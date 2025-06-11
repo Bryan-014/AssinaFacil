@@ -3,9 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Role;
-use App\Models\Person;
-use Illuminate\Support\Facades\Hash;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,20 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create([
-            'name' => 'Administrador'
-        ]);        
+        // User::factory(10)->create();
 
-        Role::create([
-            'name' => 'Cliente'
-        ]);
-
-        Person::create([
-            'name' => 'Marcio'
-        ]);        
-
-        Person::create([
-            'name' => 'Bryan'
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
         ]);
     }
 }

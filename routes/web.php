@@ -14,14 +14,21 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     $user = Auth::user();
 
-    if ($user->role_id == 'f5504d7f-8f40-4508-907f-48fb119813c6') {
-        return redirect()->route('admin.dashboard');
+    if ($user) {
+        if ($user->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
+            return redirect()->route('admin.dashboard');
+        }
+    
+        if ($user->role_id == env('CLIENT_ROLE_ID', 'role_id')) {
+            return redirect()->route('client.dashboard');
+        }
     }
+    return redirect()->route('login');
+});
 
-    if ($user->role_id == '1e0ba8e6-0c99-4bd3-9e9c-b89f33ed0fe0') {
-        return redirect()->route('client.dashboard');
-    }
-})->middleware('auth');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -31,30 +38,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'ValidOnlyAdmin'])->group(function () {
+    Route::get('/resellers', [PersonController::class, 'resellers'])->name('resellers.index');
+    Route::get('/resellers/{id}/show', [PersonController::class, 'show'])->name('resellers.show');
+    Route::post('/resellers/store', [PersonController::class, 'store'])->name('resellers.store');
+    Route::post('/resellers/{id}/update', [PersonController::class, 'update'])->name('resellers.update');
+    Route::post('/resellers/{id}/delete', [PersonController::class, 'delete'])->name('resellers.delete');
+});
+
 Route::middleware(['auth', 'ValidAdmin'])->group(function () {
     Route::get('/admin', function() {
         return view('admin.dashboard');
     })->name('admin.dashboard');
-
-    Route::get('/resellers', [PersonController::class, 'resselers'])->name('resellers.index');
     
     Route::get('/clients', [PersonController::class, 'clients'])->name('clients.index');
+    Route::get('/clients/{id}/show', [PersonController::class, 'show'])->name('clients.show');
+    Route::post('/clients/store', [PersonController::class, 'store'])->name('clients.store');
+    Route::post('/clients/{id}/update', [PersonController::class, 'update'])->name('clients.update');
+    Route::post('/clients/{id}/delete', [PersonController::class, 'delete'])->name('clients.delete');
 
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+    Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');
+    Route::get('/services/{id}/show', [ServiceController::class, 'show'])->name('services.show');
+    Route::get('/services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit');
+    Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+    Route::post('/services/{id}/update', [ServiceController::class, 'update'])->name('services.update');
+    Route::post('/services/{id}/delete', [ServiceController::class, 'delete'])->name('services.delete');
 
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
-});
-
-Route::middleware(['auth', 'ValidClient'])->group(function () {
-    Route::get('/client', function() {
-        return view('client.dashboard');
-    })->name('client.dashboard');
-
-    Route::get('/services/list', [ServiceController::class, 'list'])->name('services.list');
-
-    Route::get('/pending', [ContractController::class, 'index'])->name('pending.index');
-    
-    Route::get('/history', [PaymentController::class, 'index'])->name('history.index');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index'); 
+    Route::get('/payments/{id}/show', [PaymentController::class, 'show'])->name('payments.show');
 });
 
 require __DIR__.'/auth.php';

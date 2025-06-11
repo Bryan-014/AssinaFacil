@@ -16,7 +16,7 @@ class ValidAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == 'f5504d7f-8f40-4508-907f-48fb119813c6') {
+        if (Auth::check() && Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
             return $next($request);
         }    
         return redirect('/login');
