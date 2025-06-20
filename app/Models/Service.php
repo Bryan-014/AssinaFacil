@@ -21,9 +21,7 @@ class Service extends Model
         'id',
         'name',
         'description',
-        'base_price',
-        'base_duration',
-        'duration_type'
+        'base_plan_id',
     ];
 
     public function plans() {

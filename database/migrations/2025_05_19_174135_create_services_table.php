@@ -15,9 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('description');
-            $table->float('base_price');
-            $table->integer('base_duration');
-            $table->enum('duration_type', ['diary', 'weekly', 'monthly', 'annualy']);
+            $table->uuid('base_plan_id');            
             $table->softDeletes();
             $table->timestamps();
         });

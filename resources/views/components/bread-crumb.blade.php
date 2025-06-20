@@ -21,7 +21,11 @@
             <div class="mid">></div>
             <div class="{{isset($subPage) ? 'link-page' : 'act-page'}}">
                 @if (isset($subPage))
-                    <a href="{{ Route($link) }}">{{$page}}</a>                
+                    @if (isset($linkParam))
+                        <a href="{{ Route($link, $linkParam) }}">{{$page}}</a>                
+                    @else
+                        <a href="{{ Route($link) }}">{{$page}}</a>                
+                    @endif
                 @else
                     {{$page}}                    
                 @endif
@@ -46,6 +50,10 @@
         @endif
     @endif
     @if (isset($subPage))
-        <a href="{{ Route($link) }}" class="exit back"></a>
+        @if (isset($linkParam))
+            <a href="{{ Route($link, $linkParam) }}" class="exit back"></a>                
+        @else
+            <a href="{{ Route($link) }}" class="exit back"></a>                
+        @endif
     @endif
 </div>

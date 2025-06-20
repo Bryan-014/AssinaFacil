@@ -27,30 +27,14 @@
                 ];
 
                 $show = [
-                    'Serviço',
-                    'Valor'
+                    'Serviço'
                 ];
 
-                $values = [
-                    // '1' => [
-                    //     'service' => 'IPTV',
-                    //     'value' => 'R$ 35.00'
-                    // ],
-                    // '2' => [
-                    //     'service' => 'IPTV - Ao Vivo',
-                    //     'value' => 'R$ 15.00'
-                    // ],
-                    // '3' => [
-                    //     'service' => 'IPTV - Filmes',
-                    //     'value' => 'R$ 15.00'
-                    // ],
-                    // '4' => [
-                    //     'service' => 'IPTV - Séries',
-                    //     'value' => 'R$ 15.00'
-                    // ],
+                $columns = [
+                    'name'
                 ];
             @endphp
-            <x-table table="services" :tableConfig="$tableConfig" :showValues="$show" :values="$values"/>            
+            <x-table table="services" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$services"/>            
         </div>
     </div>
 @endsection

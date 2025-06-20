@@ -1,10 +1,18 @@
 @if (isset($data))
     <div class="steps">
-        @for ($i = 0; $i < count($data)  ; $i++)
+        @for ($i = 0; $i < count($data); $i++)
             <div class="step step-{{$data[$i]["status"]}}">
-                <div class="num-step">
-                    {{$i+1}}
-                </div>
+                @if ($data[$i]["status"] == 'free')
+                    <a href="{{route($data[$i]["link"], $data[$i]["params"])}}">
+                        <div class="num-step">
+                            {{$i+1}}
+                        </div>
+                    </a>
+                @else
+                    <div class="num-step">
+                        {{$i+1}}
+                    </div>
+                @endif
                 <div class="label-step">
                     {{$data[$i]["name"]}}
                 </div>

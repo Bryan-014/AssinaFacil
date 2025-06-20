@@ -15,7 +15,7 @@
 @section('cont-box')
     <x-bread-crumb page="Notificações"/>
     <div class="cont">
-        <div class="list-cont">
+        {{-- <div class="list-cont">
             <div class="notifications-head"></div>
             <div class="notification-list">
                 <div class="notification">
@@ -146,7 +146,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 @endsection
 

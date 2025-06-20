@@ -6,6 +6,16 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Assina Fácil</title>
+        <script>
+            (function () {
+                try {
+                    const temaSalvo = localStorage.getItem('tema') || 'light';
+                    document.documentElement.setAttribute('data-theme', temaSalvo);
+                } catch (e) {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            })();
+        </script>
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
                 
@@ -22,6 +32,9 @@
                     <div class="cont-box">
                         @yield('cont-box')
                     </div>
+                    @if (session('alert'))
+                        <x-alert />
+                    @endif
                 </div>
             </div>
         </div>

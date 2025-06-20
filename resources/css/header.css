@@ -161,6 +161,10 @@ body {
     }
 }
 
+[data-theme="dark"] .logoutbtn {
+    background-image: url('../img/nav/logout_wt.svg');        
+}
+
 .aside-links:hover ~ .content {
     width: 78%;
 }
@@ -182,8 +186,8 @@ body {
 }
 
 .logoutbtn {
-     max-width: 46px;
-     cursor: pointer;
+    max-width: 46px;
+    cursor: pointer;
 }
 
 .content {
@@ -337,7 +341,7 @@ body {
 
 .cont {
     overflow-y: auto;
-    max-height: 68vh;
+    max-height: 73vh;
 }
 
 *::-webkit-scrollbar {

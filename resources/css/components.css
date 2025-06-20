@@ -78,7 +78,7 @@
             padding: 0 4px;
         }
         
-        & input {
+        & input, select:valid, select:disabled {
             outline: none;
             width: 100%;
             color: var(--input-color-1);
@@ -86,10 +86,12 @@
             border: none;
             padding: 4px 8px 6px;
             font-size: 16px;
+            height: 34px;
         }
     
         & input:focus + label,
-          input:not(:placeholder-shown) + label {
+          input:not(:placeholder-shown) + label,
+          select:invalid {
             font-size: 12px;
             top: -8px;
             color: var(--input-color-1);
@@ -99,7 +101,7 @@
     & p {
         height: 8px;
         color: var(--danger-color);
-        font-size: 11px;
+        font-size: 14px;
     }
 }
 
@@ -205,6 +207,10 @@ button[type="button"] {
         flex-direction: column;
         justify-content: center;
 
+        & a {
+            text-decoration: none;
+        }
+
         & .num-step {
             display: flex;
             align-self: center;
@@ -229,14 +235,14 @@ button[type="button"] {
 
     & .step.step-block .num-step {
         color: var(--text-color-3);
-        background-color: var(--back-color);
-        border: 3px solid var(--primary-color);
+        background-color: var(--light-color);
     }
     
     & .step.step-free .num-step {
         color: var(--text-color-3);
-        background-color: var(--light-color);
-
+        background-color: var(--back-color);
+        border: 3px solid var(--primary-color);
+        cursor: pointer;
     }
     
     & .mid-step {
@@ -510,5 +516,37 @@ h2 {
         box-shadow: var(--shadow-1);
         border-radius: 12px;
         color: var(--text-color-2);
+    }
+}
+
+.position-alert {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    width: auto;
+    height: auto;
+}
+
+.toast {
+    background-color: var(--back-color);
+    color: var(--text-color-1);
+    
+    & .toast-header {
+        background-color: var(--primary-dark-color);
+        color: var(--text-color-2);
+    }
+}
+
+.anim_dimis {
+    animation: dimis_alert 2s ease-in forwards;
+}
+
+@keyframes dimis_alert {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }

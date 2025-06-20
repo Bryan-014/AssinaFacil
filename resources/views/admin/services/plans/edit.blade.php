@@ -13,70 +13,45 @@
 @endsection
 
 @section('cont-box')
-    <x-bread-crumb/>
-    <div>
-        <div class="cont">
-            <div id="plan-content" class="mb-3 mt-2 force-none">
-                <div class="steps">
-                    <div class="step step-free">
-                        <div class="num-step">
-                            1
-                        </div>
-                        <div class="label-step">
-                            Serviço
-                        </div>
-                    </div>
-                    <div class="mid-step">
-                        <div class="point"></div>
-                        <div class="point"></div>
-                        <div class="point"></div>
-                    </div>
-                    <div class="step step-act">
-                        <div class="num-step">
-                            2
-                        </div>
-                        <div class="label-step">
-                            Planos
-                        </div>
-                    </div>
+    <x-bread-crumb page="Serviços" subPage="Editar Plano" link="plans.index" :linkParam="['service_id' => $service_id]"/>
+    <div class="cont">
+        <div id="plan-content" class="mb-3 mt-2">
+            @php
+                $dados = [
+                    [
+                        'name' => 'Serviço',
+                        'status' => 'free',
+                        'link' => 'services.edit',
+                        'params' => [
+                            'id' => $service_id
+                        ]
+                    ],    
+                    [
+                        'name' => 'Planos',
+                        'status' => 'act',
+                    ]
+                ];
+            @endphp
+            <x-steps :data="$dados"/>
+            <form action="{{ route('plans.update', ['service_id' => $service_id, 'id' => $plan->id]) }}" method="POST">
+                @csrf
+                <div class="wrapper-inputs">
+                    <x-primary-input type="text" name="description" label="Descrição" :messages="$errors->get('description')" :oldValue="$plan->description"/>
+                    <x-primary-input type="number" acceptDecimals="True" name="price" label="Valor" :messages="$errors->get('price')" :oldValue="$plan->price"/>
                 </div>
                 <div class="wrapper-inputs">
-                    <div class="primary-input">
-                        <div>
-                            <input type="text" placeholder=" " name="nome" id="nome" value="">
-                            <label for="nome">Nome</label>
-                        </div>
-                        <p id="response-nome"></p>
-                    </div>
-                    <div class="primary-input">
-                        <div>
-                            <input type="text" placeholder=" " name="email" id="email" value="">
-                            <label for="email">Descrição</label>
-                        </div>
-                        <p id="response-email"></p>
-                    </div>
+                    <x-primary-select name="duration_type" label="Tipo de Renovação" :messages="$errors->get('duration_type')" :oldValue="$plan->duration_type">
+                        <option value="1" {{ old('duration_type', $plan->duration_type) == 'Diário' ? 'selected' : '' }}>Diário</option>
+                        <option value="2" {{ old('duration_type', $plan->duration_type) == 'Semanal' ? 'selected' : '' }}>Semanal</option>
+                        <option value="3" {{ old('duration_type', $plan->duration_type) == 'Mensal' ? 'selected' : '' }}>Mensal</option>
+                        <option value="4" {{ old('duration_type', $plan->duration_type) == 'Anual' ? 'selected' : '' }}>Anual</option>
+                    </x-primary-select>
+                    <x-primary-input type="number" acceptDecimals="True" name="duration" label="Tempo de Renovação" :messages="$errors->get('duration')" :oldValue="$plan->duration"/>
                 </div>
-                <div class="wrapper-inputs">
-                    <div class="primary-input">
-                        <div>
-                            <input type="text" placeholder=" " name="email" id="email" value="">
-                            <label for="email">Valor</label>
-                        </div>
-                        <p id="response-email"></p>
-                    </div>
-                    <div class="primary-input">
-                        <div>
-                            <input type="text" placeholder=" " name="email" id="email" value="">
-                            <label for="email">Duração</label>
-                        </div>
-                        <p id="response-email"></p>
-                    </div>
+                <div class="d-flex justify-content-end">
+                    <input class="primary-btn" type="submit" value="Editar Plano">
                 </div>
-                <div class="d-flex justify-content-end gap-3">
-                    <input class="primary-btn" type="submit" value="Adicionar Plano">
-                    <input class="primary-btn" type="submit" value="Finalizar Cadastro">
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection

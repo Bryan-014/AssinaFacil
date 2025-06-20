@@ -13,69 +13,56 @@
 @endsection
 
 @section('cont-box')
-    <x-bread-crumb/>
+    <x-bread-crumb page="Serviços" subPage="Editar" link="services.index"/>
     <div>
         <div class="cont">
             <div class="mt-2 mb-3">
-                <div class="steps">
-                    <div class="step step-act">
-                        <div class="num-step">
-                            1
+                @php
+                    $dados = [
+                        [
+                            'name' => 'Serviço',
+                            'status' => 'act',
+                        ],    
+                        [
+                            'name' => 'Planos',
+                            'status' => 'free',
+                            'link' => 'plans.index',
+                            'params' => [
+                                'service_id' => $id
+                            ]
+                        ]
+                    ];
+                @endphp
+                <x-steps :data="$dados"/>
+                <form action="{{route('services.update', ['id' => $service->id])}}" method="POST">
+                    @csrf
+                    <div class="wrapper-inputs">
+                        <div class="upload-container">
+                            <img id="preview" class="image-preview" src="{{ asset('storage/uploads/pic.svg') }}" alt="Pré-visualização da imagem">
+                            <input type="file" id="foto" class="file-input" accept="image/*" onchange="previewImagem(event)">
+                            <label for="foto" class="primary-btn">Escolher Foto</label>
                         </div>
-                        <div class="label-step">
-                            Serviço
-                        </div>
-                    </div>
-                    <div class="mid-step">
-                        <div class="point"></div>
-                        <div class="point"></div>
-                        <div class="point"></div>
-                    </div>
-                    <div class="step step-free">
-                        <div class="num-step">
-                            2
-                        </div>
-                        <div class="label-step">
-                            Planos
-                        </div>
-                    </div>
-                </div>
-                <div class="wrapper-inputs">
-                    <div class="upload-container">
-                        <img id="preview" class="image-preview" src="../../../img/service/iptv.png" alt="Pré-visualização da imagem">
-                        <input type="file" id="foto" class="file-input" accept="image/*" onchange="previewImagem(event)">
-                        <label for="foto" class="primary-btn">Escolher Foto</label>
-                    </div>
-                    <div class="subs-inputs">
-                        <div class="primary-input">
-                            <div>
-                                <input type="text" placeholder=" " name="nome" id="nome" value="IPTV">
-                                <label for="nome">Serviço</label>
-                            </div>
-                            <p id="response-nome"></p>
-                        </div>
-                        <div class="primary-input">
-                            <div>
-                                <input type="text" placeholder=" " name="email" id="email" value="R$ 35,00">
-                                <label for="email">Valor</label>
-                            </div>
-                            <p id="response-email"></p>
+                        <div class="subs-inputs">
+                            <x-primary-input type="text" name="name" label="Serviço" :messages="$errors->get('name')" :oldValue="$service->name"/>
+                            <x-primary-input type="number" acceptDecimals="True" name="base_price" label="Valor" :messages="$errors->get('base_price')" :oldValue="$defPlan->price"/>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <div class="primary-input">
-                        <div>
-                            <input type="text" placeholder=" " name="cpf" id="cpf" value="Acesso às mídias digitais mais curtidas">
-                            <label for="cpf">Descrição</label>
-                        </div>
-                        <p id="response-cpf"></p>
-                    </div>                                    
-                </div>
-                <div class="d-flex justify-content-end gap-2">
-                    <input class="primary-btn" type="submit" value="Exluir">
-                    <input class="primary-btn" type="submit" value="Editar">
-                </div>
+                    <div>
+                        <x-primary-input type="text" name="description" label="Descrição" :messages="$errors->get('description')" :oldValue="$service->description"/>              
+                    </div>
+                    <div class="wrapper-inputs">
+                        <x-primary-select name="duration_type" label="Tipo de Renovação" :messages="$errors->get('duration_type')" :oldValue="$defPlan->duration_type">
+                            <option value="1" {{ old('duration_type', $defPlan->duration_type) == 'Diário' ? 'selected' : '' }}>Diário</option>
+                            <option value="2" {{ old('duration_type', $defPlan->duration_type) == 'Semanal' ? 'selected' : '' }}>Semanal</option>
+                            <option value="3" {{ old('duration_type', $defPlan->duration_type) == 'Mensal' ? 'selected' : '' }}>Mensal</option>
+                            <option value="4" {{ old('duration_type', $defPlan->duration_type) == 'Anual' ? 'selected' : '' }}>Anual</option>
+                        </x-primary-select>
+                        <x-primary-input type="number" acceptDecimals="False" name="base_duration" label="Tempo do Plano" :messages="$errors->get('base_duration')" :oldValue="$defPlan->duration"/>
+                    </div>    
+                    <div class="d-flex justify-content-end">
+                        <input class="primary-btn" type="submit" value="Editar">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

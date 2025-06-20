@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->uuid('role_id');
-            $table->uuid('person_id');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-            $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');            
             $table->string('user');            
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

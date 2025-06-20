@@ -28,11 +28,11 @@ class Contract extends Model
     ];
 
     public function dealer() {
-        return $this->hasOne(Person::class);
+        return $this->hasOne(User::class);
     }
 
     public function client() {
-        return $this->hasOne(Person::class);
+        return $this->hasOne(User::class);
     }
 
     public function service() {
@@ -40,6 +40,6 @@ class Contract extends Model
     }
 
     public function plan() {
-        return $this->hasOne(Person::class);
+        return $this->hasOne(Plan::class);
     }
 }

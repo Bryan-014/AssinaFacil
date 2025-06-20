@@ -20,7 +20,6 @@ class Plan extends Model
     protected $fillable = [
         'id',
         'service_id',
-        'name',
         'description',
         'price',
         'duration',

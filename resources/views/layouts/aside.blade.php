@@ -47,7 +47,7 @@
                 <p class="navigation-text force-opacity-none user_func">{{ Auth::user()->role->name }}</p>
             </div>     
             <div class="exit-dark">
-                {{-- <div class="dark-mode-btn navigation-text force-opacity-none toggle-container">
+                <div class="dark-mode-btn navigation-text force-opacity-none toggle-container">
                     <input type="checkbox" id="modoToggle" class="toggle-checkbox">
                     <label for="modoToggle" class="toggle-label">
                         <div class="svg-sol">
@@ -61,7 +61,7 @@
                             </svg>
                         </div>
                     </label>
-                </div> --}}
+                </div>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <input  class="logoutbtn" type="submit" value="">

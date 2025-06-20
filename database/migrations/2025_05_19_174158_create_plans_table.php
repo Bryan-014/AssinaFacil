@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
             $table->string('description');
-            $table->float('base_price');
-            $table->integer('base_duration');
-            $table->enum('duration_type', ['diary', 'weekly', 'monthly', 'annualy']);
+            $table->float('price');
+            $table->integer('duration');
+            $table->enum('duration_type', ['Diário', 'Semanal', 'Mensal', 'Anual']);
             $table->uuid('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->softDeletes();

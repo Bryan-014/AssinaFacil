@@ -1,11 +1,6 @@
-@php
-    if(!isset($margin)) {
-        $margin = '';
-    }
-@endphp
-<div class="primary-input ">
+<div class="primary-input">
     <div>
-        <input type="{{$type}}" placeholder=" " name="{{$name}}" id="{{$name}}" value="{{$oldValue}}">                            
+        <input type="{{$type}}" {{ $type == 'number' && $acceptDecimals == 'True' ? 'step=0.01' : '' }} placeholder=" " name="{{$name}}" id="{{$name}}" value="{{$oldValue}}">                            
         <label for="{{$name}}">{{$label}}</label>
     </div>
     <p id="response-{{$name}}">
