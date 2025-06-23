@@ -13,15 +13,15 @@
 @endsection
 
 @section('cont-box')
-    <x-bread-crumb/>
+    <x-bread-crumb page="Clientes" subPage="Visualizar" link="clients.index"/>
     <div>
         <div class="cont">
             <div class="main-infos mt-2">
                 <div class="client-info">
                     <h2>Informações do Cliente</h2>
-                    <span><b>Nome:</b> Lucar Andrade</span>
+                    <span><b>Nome:</b> {{$user->user}}</span>
                     <br>
-                    <span><b>Email:</b> lucas.andrade@gmail.com</span>
+                    <span><b>Email:</b> {{$user->email}}</span>
                 </div>
                 <div class="access-infos">
                     <h2>Informações de Acesso a Plataforma</h2>
@@ -40,15 +40,15 @@
                     </div>
                 </div>
             </div>
-            <div class="planos mt-2">
+            {{-- <div class="planos mt-2">
                 <h2>Serviços Contratados</h2>
                 <div class="cards-content">
                     <div class="card-service">
                         <div class="card-img">
-                            <img src="../../../img/service/serie.png" alt="">
+                            <img src=" alt="">
                         </div>
                         <div class="card-cont">
-                            <p class="title">IPTV - Séries</p>
+                            <p class="title"></p>
                             <div class="card-foot">
                                 <p><b>Vencimento: </b>10/06/2025</p>                                            
                             </div>
@@ -56,17 +56,17 @@
                     </div>
                     <div class="card-service">
                         <div class="card-img">
-                            <img src="../../../img/service/vivo.png" alt="">
+                            <img src="" alt="">
                         </div>
                         <div class="card-cont">
-                            <p class="title">IPTV - Ao Vivo</p>
+                            <p class="title"></p>
                             <div class="card-foot">
                                 <p><b>Vencido: </b>27/04/2025</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

@@ -30,29 +30,11 @@
                     'Nome'
                 ];
 
-                $values = [
-                    // '1' => [
-                    //     'service' => 'IPTV',
-                    //     'value' => 'R$ 35.00'
-                    // ],
-                    // '2' => [
-                    //     'service' => 'IPTV - Ao Vivo',
-                    //     'value' => 'R$ 15.00'
-                    // ],
-                    // '3' => [
-                    //     'service' => 'IPTV - Filmes',
-                    //     'value' => 'R$ 15.00'
-                    // ],
-                    // '4' => [
-                    //     'service' => 'IPTV - Séries',
-                    //     'value' => 'R$ 15.00'
-                    // ],
+                $columns = [
+                    'user'
                 ];
             @endphp
-            <x-table table="clients" :tableConfig="$tableConfig" :showValues="$show" :values="$values">
-                <x-primary-input type="text" name="name" label="Nome" :messages="$errors->get('name')" :oldValue="old('name')"/>
-                <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="old('email')"/>
-            </x-table>
+            <x-table table="clients" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$clients" />
         </div>
     </div>
 @endsection

@@ -18,7 +18,7 @@
 }
 
 .danger-btn {
-    background-color: var(--danger-color);
+    background-color: var(--danger-dark-color);
 }
 
 .danger-btn:hover {
