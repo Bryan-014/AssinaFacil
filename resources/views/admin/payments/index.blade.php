@@ -23,7 +23,12 @@
                     'hasCreate' => False,
                     'hasSearch' => True,
                     'hasModelCE' => True,
-                    'importClientsModule' => False
+                    'importClientsModule' => False,
+                    'btns' => [
+                        'view' => True,
+                        'edit' => False,
+                        'delete' => False
+                    ]
                 ];
 
                 $show = [
@@ -32,8 +37,15 @@
                     'Data',
                     'Valor'
                 ];
+
+                $columns = [
+                    'contract->client->user',
+                    'contract->plan->service->name',
+                    'pay_date',
+                    'contract->plan->price'
+                ];
             @endphp
-            <x-table table="payments" :tableConfig="$tableConfig" :showValues="$show" :values="$values"/>
+            <x-table table="payments" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$payments"/>
         </div>
     </div>
 @endsection

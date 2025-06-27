@@ -7,7 +7,7 @@ use App\Models\Plan;
 
 use Illuminate\Http\Request;
 
-class PlanController extends Controller
+class PlanController extends ValidateController
 {
     protected $validationRules = [
         'description' => 'required',

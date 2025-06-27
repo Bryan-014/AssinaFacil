@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
     
-        if ($user->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
+        if ($user->role_id == env('DEALER_ROLE_ID', 'role_id') || $user->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
             return redirect()->route('admin.dashboard');
         }
 

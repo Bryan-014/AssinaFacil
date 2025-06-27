@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\Service;
 use App\Models\Plan;
-
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ServiceController extends Controller
+class ServiceController extends ValidateController
 {    
     protected $validationRules = [
         'name' => 'required|min:3',
@@ -33,6 +35,12 @@ class ServiceController extends Controller
         $services = Service::paginate(10);
         return view('admin.services.index', compact('services'));
     }    
+
+    public function list()
+    {
+        $services = Service::all();
+        return view('client.service.index', compact('services'));
+    }
     
     public function create()
     {
@@ -41,7 +49,7 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {        
-        $request->validate($this->validationRules, $this->validationMessages);
+        $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao cadastrar o serviço');
 
         $service = Service::create([
             'name' => $request->name,
@@ -83,6 +91,21 @@ class ServiceController extends Controller
         return redirect()->route('services.index');
     }
 
+    public function view(string $id)
+    {
+        $service = Service::find($id);
+        if (isset($service)) {
+            $defPlan = Plan::find($service->base_plan_id);
+            return view('client.service.show')->with('service', $service)->with('defPlan', $defPlan);    
+        }
+
+        session()->flash('alert', [
+            'msg' => 'Serviço não encontrado!',
+            'title' => 'Atenção'
+        ]);
+        return redirect()->route('services.list');
+    }
+
     public function edit(string $id)
     {
         $service = Service::find($id);
@@ -104,7 +127,8 @@ class ServiceController extends Controller
         $service = Service::find($id);
         if (isset($service)) {
             $defPlan = Plan::find($service->base_plan_id);
-            $request->validate($this->validationRules, $this->validationMessages);
+
+            $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao atualizar o serviço');
 
             $service->name = $request->name;
             $service->description = $request->description;

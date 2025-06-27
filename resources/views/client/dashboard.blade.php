@@ -14,33 +14,45 @@
 
 @section('cont-box')
     <x-bread-crumb/>
-    <div class="cont">
-        <div class="my-services">
-            <div class="list-cont">
-                <div class="service">
-                    <div class="img-service">
-                        <img src="{{ asset('storage/uploads/iptv.png') }}" alt="">
-                    </div>
-                    <div class="services-texts">
-                        <div class="title">
-                            <h3>IPTV</h3>
+    <div class="my-services">
+        <div class="list-cont">
+            @if (count($contracts) != 0) 
+                @foreach ($contracts as $contract)
+                    <a class="service-link" href="{{route('client.contract', ['contract_id' => $contract->id])}}">
+                        <div class="service">
+                            <div class="img-service">
+                                <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+                            </div>
+                            <div class="services-texts">
+                                <div class="title">
+                                    <h3>{{$contract->plan->service->name}}</h3>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+                @endforeach
+            @else 
+                <div class="center-info">
+                    <span>
+                        Nenhum Contrato Ativo 
+                    </span>
                 </div>
-            </div>
-            <div class="view-more-box">
-                <div class="view-more-content">
+            @endif
+        </div>
+        <div class="view-more-box">
+            <div class="view-more-content">
+                @if (isset($contract_selected))
                     <div class="head-infos">
                         <div class="titles">
                             <div class="title">
-                                <h2>IPTV</h2>
+                                <h2>{{$contract_selected->plan->service->name}}</h2>
                             </div>
                             <div class="plano">
                                 <div class="info-plano">
-                                    <span><b>Plano:</b> Mensal</span>
+                                    <span><b>Plano:</b> {{$contract_selected->plan->duration_type}}</span>
                                 </div>
                                 <span class="value">
-                                    R$ 35.00
+                                    R$ {{ number_format($contract_selected->plan->price, 2, ',', '.') }}
                                 </span>
                             </div>
                             <div class="validade">
@@ -50,20 +62,21 @@
                             </div>
                         </div>
                         <div class="service-img">
-                            <img src="{{ asset('storage/uploads/iptv.png') }}" alt="">
+                            <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
                         </div>
                     </div>
                     <div class="add-info">
-                        <h3>Informações Adicionais</h3>
-                        <span>
-                            <b>Link Web Player: </b> <a href="http://navegadoruniplay.top/switchuser.php">http://navegadoruniplay.top/switchuser.php</a>
-                        </span>
-                        <br>
-                        <span><b>Usuário: </b>usuário123</span>
-                        <br>
-                        <span><b>Senha: </b>senha123</span>
+                        {{-- <h3>Informações Adicionais</h3> --}}
+                        {{-- <br> --}}
+                        {{-- <span><b>//campo</b>//value</span> --}}
                     </div>
-                </div>
+                @else 
+                    <div class="center-info">
+                        <span>
+                            Nenhum Contrato Selecionado
+                        </span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -72,3 +85,5 @@
 @section('js-resources')    
     @vite(['resources/js/app.js', 'resources/js/home.js'])
 @endsection
+    
+        {{-- <span class="valor">R$ {{ number_format($contract->plan->price, 2, ',', '.') }}</span>          --}}

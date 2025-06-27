@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dealer_group', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('delaer_id')->constrained('users')->onDelete('cascade');
-            $table->json('clieent_list');
+            $table->uuid('id')->primary();
+            $table->foreignId('dealer_id')->constrained('users')->onDelete('cascade');
+            $table->json('client_list');
             $table->timestamps();
         });
     }

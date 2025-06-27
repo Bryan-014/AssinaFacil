@@ -17,17 +17,33 @@
     <div>
         <div class="cont">
             <div class="main-info">
-                {{-- <div class="chart">
-                    <div class="def-chart" id="myChart" style="width:100%; height:350px; margin-bottom: 6px;"></div>
-                </div>
                 <div class="more-info">
                     <div class="list-infos">
                         <div class="info">
-                            Clientes com validade do plano expirada: <b>6</b>
+                            <h4>Informações de Contratos</h4>
+                            <div class="mini-cards">
+                                <div class="mini-c suss">
+                                    <div class="label">Ativos</div>
+                                    <div class="value">0</div>
+                                </div>
+                                <div class="mini-c warn">
+                                    <div class="label">A vencer</div>
+                                    <div class="value">0</div>                                    
+                                </div>
+                                <div class="mini-c dang">                                    
+                                    <div class="label">Expirados</div>
+                                    <div class="value">0</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="def-chart" id="myChart2" style="width:100%; height:200px; margin-bottom: 6px;"></div>
-                </div> --}}
+                    <div class="chart-services">
+                        <div class="def-chart" id="myChart2" style="width: 84%; height: auto; margin-bottom: 6px;"></div>
+                    </div>
+                </div>
+                <div class="chart">
+                    <div class="def-chart" id="myChart" style="width:82%; height:350px; margin-bottom: 6px;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -106,14 +122,14 @@
             const options2 = {
                 title: 'Serviços Mais Contratados',
                 is3D: true,
-                backgroundColor: isDark ? '#454554' : '#ffffff',
+                backgroundColor: isDark ? '#111122' : '#111122',
                 titleTextStyle: {
-                    color: isDark ? '#ffffff' : '#000000'
+                    color: isDark ? '#ffffff' : '#ffffff'
                 },
                 legend: {
                     textStyle: {
-                        color: isDark ? '#cccccc' : '#333333',
-                        fontSize: 14
+                        color: isDark ? '#ffffff' : '#ffffff',
+                        fontSize: 10
                     }
                 },
                 chartArea: {

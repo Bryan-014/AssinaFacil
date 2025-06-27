@@ -16,7 +16,7 @@ class ValidAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
+        if (Auth::check() && (Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id') || Auth::user()->role_id == env('DEALER_ROLE_ID', 'role_id'))) {
             return $next($request);
         }    
         return redirect('/login');

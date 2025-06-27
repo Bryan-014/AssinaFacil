@@ -1,22 +1,15 @@
+@php
+    $panelInfo = (Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id') || Auth::user()->role_id == env('DEALER_ROLE_ID', 'role_id')) ? ['admin', 'do Administrador'] : ['client', 'do Cliente'];
+@endphp
 <div class="head-cont">
     <div class="bread-crumb">
         @if (explode('/', request()->path())[0] == 'admin' || explode('/', request()->path())[0] == 'client')
-            @if(Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id'))
-                <div class="act-page">
-                    Painel Administrador 
-                </div>
-            @elseif (Auth::user()->role_id == env('CLIENT_ROLE_ID', 'role_id'))
-                <div class="act-page">
-                    Painel do Cliente
-                </div>
-            @endif
+            <div class="act-page">
+                Painel {{$panelInfo[1]}} 
+            </div>
         @else
             <div class="link-page">
-                @if(Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id'))
-                    <a href="{{ Route('admin.dashboard') }}">Painel Administrador</a>
-                @elseif (Auth::user()->role_id == env('CLIENT_ROLE_ID', 'role_id'))
-                    <a href="{{ Route('client.dashboard') }}">Painel do Cliente</a>
-                @endif
+                <a href="{{ Route($panelInfo[0].'.dashboard') }}">Painel {{$panelInfo[1]}}</a>
             </div>
             <div class="mid">></div>
             <div class="{{isset($subPage) ? 'link-page' : 'act-page'}}">
@@ -38,16 +31,8 @@
             @endif
         @endif
     </div>
-    @if (explode('/', request()->path())[0] != 'admin' || explode('/', request()->path())[0] != 'client')
-        @if(Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id'))
-            @if ((explode('/', request()->path())[0] != 'admin' && !isset($subPage)))
-                <a href="{{ Route('admin.dashboard') }}" class="exit close"></a>
-            @endif
-        @elseif (Auth::user()->role_id == env('CLIENT_ROLE_ID', 'role_id'))
-            @if ((explode('/', request()->path())[0] != 'client' && !isset($subPage)))
-                <a href="{{ Route('client.dashboard') }}" class="exit close"></a>
-            @endif
-        @endif
+    @if ((explode('/', request()->path())[0] != $panelInfo[0] && !isset($subPage)))
+        <a href="{{ Route($panelInfo[0].'.dashboard') }}" class="exit close"></a>
     @endif
     @if (isset($subPage))
         @if (isset($linkParam))

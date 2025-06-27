@@ -64,7 +64,8 @@
         position: relative;
         width: 100%;
         padding: 6px;
-        border: 1px solid var(--input-color-1);
+        border: 1px solid #a09e9e;
+        box-shadow: var(--shadow-1);
         border-radius: 8px;
         
         & label {
@@ -270,6 +271,7 @@ button[type="button"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 12px;
     gap: 12px;
 }
 
@@ -341,10 +343,14 @@ button[type="button"] {
         border-radius: 12px;
         box-shadow: var(--shadow-1);  
 
-        & img {
-            width: 65%;
-            height: 100%;
-            border-radius: 12px;
+        & .img-service {
+            width: 25%;
+
+            & img {
+                width: 100%;
+                height: 100%;
+                border-radius: 12px;
+            }
         }
 
         & .services-texts {
@@ -375,8 +381,19 @@ button[type="button"] {
     transform: scale(1.03);
 }
 
+.value-content {
+    display: flex;
+    align-items: center;
+    width: 25%;
+}
+
 .my-services {
     display: flex;
+    gap: 12px;
+}
+
+.list-cont {
+    width: 50%;
 }
 
 .service {
@@ -392,11 +409,16 @@ button[type="button"] {
     box-shadow: var(--shadow-1);  
     transition: all .5s;
 
-    & img {
-        width: 65%;
-        height: 100%;
-        border-radius: 12px;
+    .img-service {
+        width: 50%;
+
+        & img {
+            width: 65%;
+            height: 100%;
+            border-radius: 12px;
+        }
     }
+
 
     & .services-texts {
         width: 60%;
@@ -445,11 +467,14 @@ button[type="button"] {
     }
 
     & .service-img {
+        display: flex;
+        justify-content: flex-end;
         width: 45%;
     }
 
     & img {
         width: 100%;
+        max-width: 150px;
         border-radius: 12px;
     }
 
@@ -463,6 +488,24 @@ button[type="button"] {
         margin-right: 8px;
         border-radius: 25px;
         color: var(--text-color-2);
+    }
+}
+
+.service-link {
+    text-decoration: none;
+}
+
+.center-info {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & span {
+        font-size: 26px;
+        font-weight: 800;
+        color: var(--text-color-1);
     }
 }
 
@@ -494,29 +537,70 @@ h2 {
 }
 
 .chart {
+    display: flex;
     width: 60%;
+    justify-content: center;
+    align-items: center;
 }
 
 .more-info {
     width: 40%;
+    display: flex;
+    flex-direction: column;
 }
 
 .list-infos {
     display: flex;
-    justify-content: end;
+    justify-content: center;
     align-items: start;
-    width: 100%;
-    height: 40%;
+    width: auto;
+    background-color: var(--primary-dark-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow-1);
+    padding: 12px;
+    margin: 20px;
 
     & .info {
-        padding: 12px;
         font-size: 12px;
         margin-top: 6px;
-        background-color: var(--primary-dark-color);
-        box-shadow: var(--shadow-1);
-        border-radius: 12px;
         color: var(--text-color-2);
     }
+
+    & .mini-cards {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+
+        & .mini-c {
+            border-radius: 12px;
+            width: 40%;
+            background-color: var(--back-color);
+            color: var(--text-color-1);
+            padding: 12px;
+            text-align: center;
+
+            & .label {                
+                font-size: 12px;    
+                font-weight: 800;
+            } 
+            
+            & .value {            
+                font-size: 30px;    
+            } 
+        }
+    }
+}
+
+.chart-services {
+    background-color: var(--primary-dark-color);
+    margin: 17px;
+    margin-top: 0;
+    box-shadow: var(--shadow-1);
+    padding: 8px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border-radius: 12px;
 }
 
 .position-alert {
@@ -539,6 +623,18 @@ h2 {
 
 .anim_dimis {
     animation: dimis_alert 2s ease-in forwards;
+}
+
+.list-cont .pend-services-container {
+    flex-direction: column;
+
+    & .pend-service {
+        width: 100%;
+
+        & .services-texts {
+            width: 100%;
+        }
+    }
 }
 
 @keyframes dimis_alert {

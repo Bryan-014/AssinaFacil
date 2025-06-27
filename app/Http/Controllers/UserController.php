@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class PersonController extends Controller
+class UserController extends ValidateController
 {
     protected $validationRules = [
         'user' => 'required|min:3',
@@ -37,7 +37,7 @@ class PersonController extends Controller
     {
         $dataReturn = $this->check_role($request->route()->getName(), 'store');
 
-        $request->validate($this->validationRules, $this->validationMessages);        
+        $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao cadastrar o '.$dataReturn[0]);   
         
         $user = new User();
 
@@ -77,6 +77,8 @@ class PersonController extends Controller
 
         $user = User::find($id);
         if (isset($user)) {
+            $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao atualizar o '.$dataReturn[0]);
+
             $user->user = $request->user;
             $user->email = $request->email;
             

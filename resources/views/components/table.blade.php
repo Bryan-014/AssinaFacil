@@ -4,12 +4,21 @@
     } else {
         $addParams = [];
     }
+    
+    
+    if (is_object($values) && method_exists($values, 'links')) {
+        $contValues = $values->count();        
+    } else {
+        $contValues = count($values);        
+    }
 @endphp
 <div>
     @if ($tableConfig['hasHead'])
         <div class="head-table">
             @if (!$tableConfig['hasModelCE'])
-                <a href="{{ route($table.'.create', $addParams) }}" class="primary-btn mt-2">Cadastrar {{$tableConfig['nameTable']}}</a>     
+                @if ($tableConfig['hasCreate'])
+                    <a href="{{ route($table.'.create', $addParams) }}" class="primary-btn mt-2">Cadastrar {{$tableConfig['nameTable']}}</a>     
+                @endif
             @else
                 <div>
                     @if ($tableConfig['hasCreate'])
@@ -64,83 +73,104 @@
             @endforeach
             <div class="tbl-head"></div>
         </div>
-        @if ($values->count() > 0)            
-            @for ($i = 0; $i < $values->count(); $i++)
+        @if ($contValues > 0)            
+            @for ($i = 0; $i < $contValues; $i++)
                 <div class="tbl-row {{$i % 2 == 0 ? '' : 'row-stripe'}}">
                     @for ($j = 0; $j < count($columns); $j++)
                         <div class="tbl-cont {{$j != 0 ? 'center' : '' }}">
                             @php
-                                echo($values[$i]->{$columns[$j]})
+                                $current = $values[$i];
+                                foreach (explode('->', $columns[$j]) as $segment) {
+                                    if (is_object($current) && isset($current->{$segment})) {
+                                        $current = $current->{$segment};
+                                    } else {
+                                        $current = null;
+                                        break;
+                                    }
+                                }
+                                echo $current;
                             @endphp
                         </div>                        
                     @endfor
                     <div class="tbl-cont center cont-crud">
                         @if (!isset($tableConfig['addParams']))
-                            <a href="{{ route($table.'.show', ['id' => $values[$i]->id]) }}" class="tbl-btn-crud crud-view"></a>
-                            @if (!$tableConfig['hasModelCE'])
-                                <a href="{{ route($table.'.edit', ['id' => $values[$i]->id]) }}" class="tbl-btn-crud crud-updt"></a>
-                            @else
-                                <a class="tbl-btn-crud crud-updt"  data-bs-toggle="modal" data-bs-target="#editClient{{$values[$i]->id}}"></a>
-                                <div class="modal fade" id="editClient{{$values[$i]->id}}" tabindex="-1" aria-labelledby="editClientLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editClientLabel">Editar Cliente</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{route('clients.update', ['id' => $values[$i]->id])}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$values[$i]->id}}">
-                                                <div class="modal-body">
-                                                    <x-primary-input type="text" name="user" label="Nome" :messages="$errors->get('user')" :oldValue="$values[$i]->user"/>
-                                                    <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="$values[$i]->email"/>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="danger-btn" data-bs-dismiss="modal">Fechar</button>
-                                                    <button type="submit" class="primary-btn">Editar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> 
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['view'])
+                                <a href="{{ route($table.'.show', ['id' => $values[$i]->id]) }}" class="tbl-btn-crud crud-view"></a>
                             @endif
-                            <form action="{{ Route($table.'.destroy', ['id' => $values[$i]->id]) }}" method="post">
-                                @csrf
-                                <input class="tbl-btn-crud crud-delt" type="submit" value="">
-                            </form>
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['edit'])
+                                @if (!$tableConfig['hasModelCE'])
+                                    <a href="{{ route($table.'.edit', ['id' => $values[$i]->id]) }}" class="tbl-btn-crud crud-updt"></a>
+                                @else
+                                    <a class="tbl-btn-crud crud-updt"  data-bs-toggle="modal" data-bs-target="#editClient{{$values[$i]->id}}"></a>
+                                    <div class="modal fade" id="editClient{{$values[$i]->id}}" tabindex="-1" aria-labelledby="editClientLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="editClientLabel">Editar Cliente</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{route('clients.update', ['id' => $values[$i]->id])}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$values[$i]->id}}">
+                                                    <div class="modal-body">
+                                                        <x-primary-input type="text" name="user" label="Nome" :messages="$errors->get('user')" :oldValue="$values[$i]->user"/>
+                                                        <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="$values[$i]->email"/>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="danger-btn" data-bs-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="primary-btn">Editar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                @endif
+                            @endif
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['delete'])
+                                <form action="{{ Route($table.'.destroy', ['id' => $values[$i]->id]) }}" method="post">
+                                    @csrf
+                                    <input class="tbl-btn-crud crud-delt" type="submit" value="">
+                                </form>
+                            @endif
                         @else
-                            <a href="{{ route($table.'.show', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" class="tbl-btn-crud crud-view"></a>
-                            @if (!$tableConfig['hasModelCE'])
-                                <a href="{{ route($table.'.edit', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" class="tbl-btn-crud crud-updt"></a>
-                            @else
-                                <a class="tbl-btn-crud crud-updt"  data-bs-toggle="modal" data-bs-target="#editClient{{$values[$i]->id}}"></a>
-                                <div class="modal fade" id="editClient{{$values[$i]->id}}" tabindex="-1" aria-labelledby="editClientLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="editClientLabel">Editar Cliente</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <form action="{{route('clients.update', ['id' => $values[$i]->id])}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$values[$i]->id}}">
-                                                <div class="modal-body">
-                                                    <x-primary-input type="text" name="users" label="Nome" :messages="$errors->get('users')" :oldValue="$values[$i]->user"/>
-                                                    <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="$values[$i]->email"/>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="danger-btn" data-bs-dismiss="modal">Fechar</button>
-                                                    <button type="submit" class="primary-btn">Editar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div> 
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['view'])
+                                <a href="{{ route($table.'.show', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" class="tbl-btn-crud crud-view"></a>
                             @endif
-                            <form action="{{ Route($table.'.destroy', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" method="post">
-                                @csrf
-                                <input class="tbl-btn-crud crud-delt" type="submit" value="">
-                            </form>
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['edit'])
+                                @if (!$tableConfig['hasModelCE'])
+                                    <a href="{{ route($table.'.edit', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" class="tbl-btn-crud crud-updt"></a>
+                                @else
+                                    <a class="tbl-btn-crud crud-updt"  data-bs-toggle="modal" data-bs-target="#editClient{{$values[$i]->id}}"></a>
+                                    <div class="modal fade" id="editClient{{$values[$i]->id}}" tabindex="-1" aria-labelledby="editClientLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="editClientLabel">Editar Cliente</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <form action="{{route('clients.update', ['id' => $values[$i]->id])}}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$values[$i]->id}}">
+                                                    <div class="modal-body">
+                                                        <x-primary-input type="text" name="users" label="Nome" :messages="$errors->get('users')" :oldValue="$values[$i]->user"/>
+                                                        <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="$values[$i]->email"/>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="danger-btn" data-bs-dismiss="modal">Fechar</button>
+                                                        <button type="submit" class="primary-btn">Editar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                @endif
+                            @endif
+                            @if (!isset($tableConfig['btns']) || $tableConfig['btns']['delete'])
+                                <form action="{{ Route($table.'.destroy', ['id' => $values[$i]->id, $tableConfig['addParams']['name'] => $tableConfig['addParams']['value']]) }}" method="post">
+                                    @csrf
+                                    <input class="tbl-btn-crud crud-delt" type="submit" value="">
+                                </form>
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -164,7 +194,9 @@
             </div>
         </div> --}}
         <div class="pagination-btns">
-            {{ $values->links('vendor.pagination.custom') }}
+            @if (is_object($values) && method_exists($values, 'links'))
+                {{ $values->links('vendor.pagination.custom') }}
+            @endif
         </div>
     </div>
 </div>

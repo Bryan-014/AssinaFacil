@@ -27,6 +27,10 @@ class Service extends Model
     public function plans() {
         return $this->hasMany(Plan::class);
     }
+
+    public function base_plan() {
+        return $this->belongsTo(Plan::class);
+    }
     
     public function contract() {
         return $this->belongsTo(Contract::class);        

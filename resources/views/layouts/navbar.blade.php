@@ -1,11 +1,10 @@
 <div class="header">
     <div id="mobile-aside-control"></div>
     <div class="title">
-        @if(Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id'))
-            <a href="{{ Route('admin.dashboard') }}">Assina Fácil</a>
-        @elseif (Auth::user()->role_id == env('CLIENT_ROLE_ID', 'role_id'))
-            <a href="{{ Route('client.dashboard') }}">Assina Fácil</a>
-        @endif
+        @php
+            $panel = (Auth::user()->role_id == env('ADMIN_ROLE_ID', 'role_id') || Auth::user()->role_id == env('DEALER_ROLE_ID', 'role_id')) ? 'admin' : 'client';
+        @endphp
+        <a href="{{ Route($panel.'.dashboard') }}">Assina Fácil</a>
     </div>
     <div class="centertitle"></div>
 </div>

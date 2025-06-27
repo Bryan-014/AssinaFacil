@@ -27,7 +27,7 @@
                             <p class="descricao">{{$service->description}}</p>
                         </div>
                         <div class="price-content">
-                            <p class="value-info">R$ {{ number_format($defPlan->price, 2, ',', '.') }}</p>
+                            <p class="value-info">R$ {{ number_format($service->base_plan->price, 2, ',', '.') }}</p>
                         </div>
                     </div>
                 </div>
