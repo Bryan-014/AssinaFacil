@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 
 class Payment extends Model
 {   
@@ -25,5 +26,9 @@ class Payment extends Model
 
     public function contract() {
         return $this->belongsTo(Contract::class);
+    }
+
+    public function getMaskPayDateAttribute() {
+        return Carbon::parse($this->pay_date)->format('d/m/Y');
     }
 }

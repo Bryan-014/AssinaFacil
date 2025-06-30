@@ -33,4 +33,8 @@ class Plan extends Model
     public function contract() {
         return $this->hasMany(Contract::class);        
     }
+
+    public function getMaskPriceAttribute() {
+        return 'R$ '.number_format($this->price, 2, ',', '.');
+    }
 }

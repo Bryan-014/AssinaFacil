@@ -112,10 +112,7 @@
 
             const data2 = google.visualization.arrayToDataTable([
                 ['Serviço', 'Contratos'],
-                ['IPTV', 55],
-                ['IPTV - Filmes', 49],
-                ['IPTV - Séries', 44],
-                ['IPTV - Ao Vivo', 24]
+                ['Teste', 1]
             ]);
 
             // Set Options

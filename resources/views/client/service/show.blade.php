@@ -27,7 +27,7 @@
                             <p class="descricao">{{$service->description}}</p>
                         </div>
                         <div class="price-content">
-                            <p class="value-info">R$ {{ number_format($service->base_plan->price, 2, ',', '.') }}</p>
+                            <p class="value-info">{{$service->base_plan->mask_price}}</p>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                             </div>
                             <div class="assinatura-content">
                                 <div class="value-content">
-                                    <span class="value">R$ {{ number_format($plan->price, 2, ',', '.') }}</span>
+                                    <span class="value">{{$plan->mask_price}}</span>
                                 </div>
                                 <form action="{{route('contract.store', ['plan_id' => $plan->id,])}}" method="post">
                                     @csrf

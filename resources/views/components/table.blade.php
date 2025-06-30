@@ -81,8 +81,17 @@
                             @php
                                 $current = $values[$i];
                                 foreach (explode('->', $columns[$j]) as $segment) {
-                                    if (is_object($current) && isset($current->{$segment})) {
-                                        $current = $current->{$segment};
+                                    if (is_object($current)) {
+                                        if (isset($current->{$segment})) {
+                                            // É propriedade
+                                            $current = $current->{$segment};
+                                        } elseif (method_exists($current, $segment) || is_callable([$current, $segment])) {
+                                            // É método
+                                            $current = $current->{$segment}();
+                                        } else {
+                                            $current = null;
+                                            break;
+                                        }
                                     } else {
                                         $current = null;
                                         break;

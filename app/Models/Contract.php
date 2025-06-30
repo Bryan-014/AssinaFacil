@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
+use Carbon\Carbon;
 
 class Contract extends Model
 {
@@ -26,7 +27,7 @@ class Contract extends Model
         'add_infos'
     ];
 
-    public function dealer() {
+    public function dealer_group() {
         return $this->belongsTo(User::class);
     }
 
@@ -41,4 +42,27 @@ class Contract extends Model
     public function payments() {
         return $this->hasMany(Payment::class);
     }
+
+    public function calc_validity() {        
+        $payment = $this->payments()->latest('pay_date')->first();
+        if ($payment) {
+            $validity = Carbon::parse($payment->pay_date);
+            switch ($this->plan->duration_type) {
+                case 'Diário':
+                    $validity->addDays($this->plan->duration);
+                    break;
+                case 'Semanal':
+                    $validity->addWeeks($this->plan->duration);
+                    break;
+                case 'Mensal':
+                    $validity->addMonths($this->plan->duration);
+                    break;
+                case 'Anual':
+                    $validity->addYears($this->plan->duration);
+                    break;            
+            }
+            return $validity->format('d/m/Y'); 
+        }
+        return $this->contract_date;
+    }    
 }

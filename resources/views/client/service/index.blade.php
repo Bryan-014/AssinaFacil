@@ -18,7 +18,7 @@
         <div class="cont">
             <div class="cards-content">
                 @foreach($services as $service) 
-                    <x-service-card :name="$service->name" :price="$service->base_plan->price" :id="$service->id" />
+                    <x-service-card :name="$service->name" :price="$service->base_plan->mask_price" :id="$service->id" />
                 @endforeach
             </div>
         </div>

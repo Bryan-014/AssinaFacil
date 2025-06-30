@@ -32,13 +32,13 @@
                                             </div>
                                             <div class="subtitles">
                                                 <span class="vencimento">
-                                                    <b>Vencimento: </b> 10/06/2025
+                                                    <b>Vencimento: </b> {{$contract->calc_validity()}}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="value-content">
-                                        <span class="valor">R$ {{ number_format($contract->plan->price, 2, ',', '.') }}</span>
+                                        <span class="valor">{{$contract->plan->mask_price}}</span>
                                     </div>
                                 </div>      
                                 <script>
@@ -69,12 +69,12 @@
                                             <span><b>Plano:</b> {{$contract_select->plan->duration_type}}</span>
                                         </div>
                                         <span class="value">
-                                            R$ {{ number_format($contract_select->plan->price, 2, ',', '.') }}
+                                            {{$contract_selected->plan->mask_price}}
                                         </span>
                                     </div>
                                     <div class="validade">
                                         <span>
-                                            <p><b>Validade:</b> 10/05/2025</p>
+                                            <p><b>Validade:</b> {{$contract_select->calc_validity()}}</p>
                                         </span>
                                     </div>
                                     <div class="center-btn">

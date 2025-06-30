@@ -52,12 +52,12 @@
                                     <span><b>Plano:</b> {{$contract_selected->plan->duration_type}}</span>
                                 </div>
                                 <span class="value">
-                                    R$ {{ number_format($contract_selected->plan->price, 2, ',', '.') }}
+                                    {{$contract_selected->plan->mask_price}}
                                 </span>
                             </div>
                             <div class="validade">
                                 <span>
-                                    <p><b>Validade:</b> 10/05/2025</p>
+                                    <p><b>Validade:</b> {{$contract_selected->calc_validity()}}</p>
                                 </span>
                             </div>
                         </div>
@@ -85,5 +85,3 @@
 @section('js-resources')    
     @vite(['resources/js/app.js', 'resources/js/home.js'])
 @endsection
-    
-        {{-- <span class="valor">R$ {{ number_format($contract->plan->price, 2, ',', '.') }}</span>          --}}

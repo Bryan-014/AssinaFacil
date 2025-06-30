@@ -39,8 +39,8 @@
 
                 $columns = [
                     'contract->plan->service->name',
-                    'pay_date',
-                    'contract->plan->price',
+                    'mask_pay_date',
+                    'contract->plan->mask_price',
                 ];
             @endphp
             <x-table table="payments" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$payments"/>   

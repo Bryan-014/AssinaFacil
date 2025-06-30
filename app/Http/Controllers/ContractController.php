@@ -11,8 +11,6 @@ class ContractController extends ValidateController
     public function index()
     {
         $contracts = Contract::where('client_id', $this->get_user_id())->get();
-
-        // dd($contracts);
         return view('client.dashboard', compact('contracts'));
     }
     
@@ -33,7 +31,7 @@ class ContractController extends ValidateController
         ]);
         
         session()->flash('alert', [
-            'msg' => 'Serviço contratado com sucesso!',
+            'msg' => 'Serviço contratado com sucesso, efetue o pagamento para a liberação do serviço!',
             'title' => 'Suceesso'
         ]);
         return redirect()->route('services.list');
@@ -68,12 +66,4 @@ class ContractController extends ValidateController
     {
         //
     }    
-
-    private function calc_validity(Contract $contract) {
-
-    }
-    // public function create()
-    // {
-    //     //
-    // }
 }
