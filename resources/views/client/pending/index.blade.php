@@ -69,7 +69,7 @@
                                             <span><b>Plano:</b> {{$contract_select->plan->duration_type}}</span>
                                         </div>
                                         <span class="value">
-                                            {{$contract_selected->plan->mask_price}}
+                                            {{$contract_select->plan->mask_price}}
                                         </span>
                                     </div>
                                     <div class="validade">

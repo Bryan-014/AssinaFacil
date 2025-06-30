@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="chart">
-                    <div class="def-chart" id="myChart" style="width:82%; height:350px; margin-bottom: 6px;"></div>
+                    <div class="def-chart" id="myChart" style="width:75%; height:350px; margin-bottom: 6px;"></div>
                 </div>
             </div>
         </div>
@@ -54,57 +54,55 @@
 
         function drawChart() {
             const data = google.visualization.arrayToDataTable([
-                ['mes', 'Clientes'],
+                ['mes', 'Lucro'],
                 ['Jan',5],['Fev',8],['Mar',8],['Abr',9],['Mai',12], ['Jun', 10], ['Jul', 11]
             ]);
 
             let isDark = localStorage.getItem('tema') == 'dark' ? true : false;
             
             const options = {
-                title: 'Clientes ativos por mês',
+                title: 'Lucro por mês',
                 hAxis: {
                     title: 'Mês',
                     titleTextStyle: {
-                        color: isDark ? '#fff' : '#000',  
+                        color: '#ffffff',  
                         fontSize: 16
                     },
-                    baselineColor: isDark ? '#fff' : '#000',
+                    baselineColor: '#ffffff',
                     textStyle: {
-                        color: isDark ? '#fff' : '#000',  
+                        color: '#ffffff',  
                         fontSize: 12
                     }
                 },
                 vAxis: {
-                    title: 'Clientes ativos',
+                    title: 'Valor Lucrado',
                     titleTextStyle: {
-                        color: isDark ? '#fff' : '#000',  
+                        color: '#ffffff',  
                         fontSize: 16
                     },
                     textStyle: {
-                        color: isDark ? '#fff' : '#000',  
+                        color: '#ffffff',  
                         fontSize: 12
                     }
                 },
-                backgroundColor: isDark ? '#454554' : '#ffffff',
+                backgroundColor: isDark ? '#111122' : '#111122',
                 titleTextStyle: {
-                    color: isDark ? '#ffffff' : '#000000'
+                    color: '#ffffff'
                 },
                 legend: {
                     textStyle: {
-                        color: isDark ? '#cccccc' : '#333333',
+                        color: '#ffffff',
                         fontSize: 14
                     }
                 },
                 chartArea: {
-                    backgroundColor: isDark ? '#454554' : '#fff',
+                    backgroundColor: '#111122',
                     left: 50,
                     top: 30,
                     width: '60%',
                     height: '70%'
                 },
-                colors: isDark
-                    ? ['#90caf9', '#f48fb1', '#a5d6a7']
-                    : ['#1e88e5', '#e91e63', '#43a047'],
+                colors: ['#90caf9' ],
             };
             
             const chart = new google.visualization.LineChart(document.getElementById('myChart'));

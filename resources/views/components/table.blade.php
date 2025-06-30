@@ -185,7 +185,7 @@
                 </div>
             @endfor 
         @else
-            <div class="tbl-row center p-2">
+            <div class="tbl-row center m-2">
                 Nenhum registro encontrado
             </div>
         @endif
