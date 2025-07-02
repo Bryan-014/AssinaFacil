@@ -6,7 +6,7 @@
                     {{ session('alert')['title'] }}
                 @endif      
             </strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="exit close-wt" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
         <div class="toast-body">            
             @if (session('alert')['msg'])

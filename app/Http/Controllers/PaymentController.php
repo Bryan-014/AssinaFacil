@@ -55,23 +55,12 @@ class PaymentController extends ValidateController
         return redirect()->route('pending.index');
     }
 
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
+        $payment = Payment::find($id);
+        if ($request->route()->getName() == 'payments.show') {
+            return view('client.history.show', ['payment' => $payment]);
+        }
+        return view('admin.payments.show', ['payment' => $payment]);
     }
 }

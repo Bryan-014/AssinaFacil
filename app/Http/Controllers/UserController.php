@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contract;
 use App\Models\User;
 
 use Illuminate\Http\Request;
@@ -57,11 +58,23 @@ class UserController extends ValidateController
 
     public function show(Request $request, string $id)
     {
-        $dataReturn = $this->check_role($request->route()->getName(), 'show');
-
+        $dataReturn = $this->check_role($request->route()->getName(), 'show') != null ? $this->check_role($request->route()->getName(), 'show') : $this->check_role($request->route()->getName(), 'contract');
+        
         $user = User::find($id);
         if (isset($user)) {
-            return view('admin.'.$dataReturn[1].'.show')->with('user', $user);    
+            if ($dataReturn[1] == 'clients') {
+                $contracts = Contract::where('client_id', $user->id)->get();
+    
+                $contract_selected = $request->route('contract_id') != null ? Contract::find($request->route('contract_id')) : null;
+    
+                $infos = [
+                    'contracts' => $contracts,
+                    'contract_selected' => $contract_selected
+                ];
+            } else {
+                $infos = [];
+            }
+            return view('admin.'.$dataReturn[1].'.show', $infos)->with('user', $user);    
         }
 
         session()->flash('alert', [
@@ -132,5 +145,6 @@ class UserController extends ValidateController
                 'resellers'
             ];
         }
+        return null;
     }
 }

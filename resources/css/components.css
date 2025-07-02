@@ -509,6 +509,16 @@ button[type="button"] {
     }
 }
 
+.client-info {
+    width: 100%;
+}
+
+.wrapper-flex {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
 .modal-content {
     background-color: var(--back-color);
 }
@@ -519,6 +529,7 @@ button[type="button"] {
 
 .main-infos, .access-content {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     color: var(--content-text-color);
 }
@@ -639,6 +650,11 @@ h2 {
             width: 100%;
         }
     }
+}
+
+.exit.close-wt {
+    background-color: var(--primary-dark-color);
+    background-image: url('../img/nav/close-wt.svg');
 }
 
 @keyframes dimis_alert {

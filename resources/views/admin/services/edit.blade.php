@@ -16,7 +16,7 @@
     <x-bread-crumb page="Serviços" subPage="Editar" link="services.index"/>
     <div>
         <div class="cont">
-            <div class="mt-2 mb-3">
+            <div class="mt-2 mb-3 p-2">
                 @php
                     $dados = [
                         [

@@ -16,7 +16,7 @@
     <x-bread-crumb page="Serviços" subPage="Criar Plano" link="plans.index" :linkParam="['service_id' => $service_id]"/>
     <div>
         <div class="cont">
-            <div id="plan-content" class="mb-3 mt-2">
+            <div id="plan-content" class="mb-3 mt-2 p-2">
                 @php
                     $dados = [
                         [

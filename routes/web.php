@@ -67,6 +67,7 @@ Route::middleware(['auth', 'ValidAdmin'])->group(function () {
     
     Route::get('/clients', [UserController::class, 'clients'])->name('clients.index');
     Route::get('/clients/{id}/show', [UserController::class, 'show'])->name('clients.show');
+    Route::get('/clients/{id}/show/{contract_id}', [UserController::class, 'show'])->name('clients.contract');
     Route::post('/clients/store', [UserController::class, 'store'])->name('clients.store');
     Route::post('/clients/{id}/update', [UserController::class, 'update'])->name('clients.update');
     Route::post('/clients/{id}/destroy', [UserController::class, 'destroy'])->name('clients.destroy');
@@ -77,8 +78,8 @@ Route::middleware(['auth', 'ValidAdmin'])->group(function () {
     Route::get('/services/{service_id}/plans', [PlanController::class, 'index'])->name('plans.index');
     Route::get('/services/{service_id}/plans/{id}/show', [PlanController::class, 'show'])->name('plans.show');
     
-    Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index'); 
-    Route::get('/payments/{id}/show', [PaymentController::class, 'show'])->name('payments.show');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index'); 
+    Route::get('/payment/{id}/show', [PaymentController::class, 'show'])->name('payment.show');
 });
 
 Route::middleware(['auth', 'ValidClient'])->group(function () {

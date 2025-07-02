@@ -19,7 +19,7 @@
             @php
                 $tableConfig = [
                     'hasHead' => True,
-                    'nameTable' => 'Clientes',
+                    'nameTable' => 'Cliente',
                     'hasCreate' => True,
                     'hasSearch' => True,
                     'hasModelCE' => True,

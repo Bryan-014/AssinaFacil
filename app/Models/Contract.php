@@ -63,6 +63,6 @@ class Contract extends Model
             }
             return $validity->format('d/m/Y'); 
         }
-        return $this->contract_date;
+        return Carbon::parse($this->contract_date)->format('d/m/Y');
     }    
 }

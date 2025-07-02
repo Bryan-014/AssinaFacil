@@ -17,9 +17,17 @@
     <div>
         <div class="cont">
             <div class="cards-content">
-                @foreach($services as $service) 
-                    <x-service-card :name="$service->name" :price="$service->base_plan->mask_price" :id="$service->id" />
-                @endforeach
+                @if (count($services) != 0)
+                    @foreach($services as $service) 
+                        <x-service-card :name="$service->name" :price="$service->base_plan->mask_price" :id="$service->id" />
+                    @endforeach
+                @else
+                    <div class="center-info">
+                        <span>
+                            Nenhum Serviço Encontrado 
+                        </span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

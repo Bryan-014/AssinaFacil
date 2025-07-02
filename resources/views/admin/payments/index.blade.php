@@ -34,18 +34,16 @@
                 $show = [
                     'Cliente',
                     'Serviço',
-                    'Data',
-                    'Valor'
+                    'Data'
                 ];
 
                 $columns = [
                     'contract->client->user',
                     'contract->plan->service->name',
-                    'mask_pay_date',
-                    'contract->plan->mask_price'
+                    'mask_pay_date'
                 ];
             @endphp
-            <x-table table="payments" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$payments"/>
+            <x-table table="payment" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$payments"/>
         </div>
     </div>
 @endsection
