@@ -23,7 +23,12 @@
                     'hasCreate' => True,
                     'hasSearch' => True,
                     'hasModelCE' => True,
-                    'importClientsModule' => True
+                    'importClientsModule' => True,
+                    'btns' => [
+                        'view' => True,
+                        'edit' => False,
+                        'delete' => True
+                    ]
                 ];
 
                 $show = [

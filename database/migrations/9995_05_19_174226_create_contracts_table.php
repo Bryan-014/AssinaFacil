@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('dealer_group_id');
-            $table->uuid('plan_id');
+            $table->uuid('plan_id')->nullable();
             $table->foreign('dealer_group_id')->references('id')->on('dealer_group')->onDelete('cascade');
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');

@@ -52,11 +52,6 @@ class PlanController extends ValidateController
         return redirect()->route('plans.index', ['service_id' => $request->route('service_id')]);
     }
 
-    public function show(string $id)
-    {
-        //
-    }
-
     public function edit(Request $request, string $id)
     {
         $plan = Plan::find($request->route('id'));

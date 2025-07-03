@@ -24,15 +24,15 @@
                             <div class="mini-cards">
                                 <div class="mini-c suss">
                                     <div class="label">Ativos</div>
-                                    <div class="value">0</div>
+                                    <div class="value">{{$contractsInfos['actives']}}</div>
                                 </div>
                                 <div class="mini-c warn">
                                     <div class="label">A vencer</div>
-                                    <div class="value">0</div>                                    
+                                    <div class="value">{{$contractsInfos['toExpired']}}</div>                                    
                                 </div>
                                 <div class="mini-c dang">                                    
                                     <div class="label">Expirados</div>
-                                    <div class="value">0</div>
+                                    <div class="value">{{$contractsInfos['expired']}}</div>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,9 @@
         function drawChart() {
             const data = google.visualization.arrayToDataTable([
                 ['mes', 'Lucro'],
-                ['Jan',5],['Fev',8],['Mar',8],['Abr',9],['Mai',12], ['Jun', 10], ['Jul', 11]
+                @foreach($chartProfit['chartLabels'] as $index => $label)
+                    ['{{ $label }}', {{ $chartProfit['chartValues'][$index] }}],
+                @endforeach
             ]);
 
             let isDark = localStorage.getItem('tema') == 'dark' ? true : false;
@@ -83,9 +85,12 @@
                     textStyle: {
                         color: '#ffffff',  
                         fontSize: 12
+                    },
+                    gridlines: {
+                        color: '#111122'
                     }
                 },
-                backgroundColor: isDark ? '#111122' : '#111122',
+                backgroundColor: '#111122',
                 titleTextStyle: {
                     color: '#ffffff'
                 },
@@ -110,10 +115,11 @@
 
             const data2 = google.visualization.arrayToDataTable([
                 ['Serviço', 'Contratos'],
-                ['Teste', 1]
+                @foreach($chartServices['chartLabels'] as $index => $label)
+                    ['{{ $label }}', {{ $chartServices['chartValues'][$index] }}],
+                @endforeach
             ]);
 
-            // Set Options
             const options2 = {
                 title: 'Serviços Mais Contratados',
                 is3D: true,
@@ -136,15 +142,9 @@
                 },
             };
 
-            // Draw
             const chart2 = new google.visualization.PieChart(document.getElementById('myChart2'));
             chart2.draw(data2, options2);
         }
-
-        document.querySelector('#modoToggle').addEventListener('change', () => {
-            document.getElementById('myChart').innerHTML = '';
-            drawChart();
-        })
     </script>
 @endsection
 

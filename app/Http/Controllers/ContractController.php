@@ -52,11 +52,6 @@ class ContractController extends ValidateController
         return redirect()->route('client.dashboard');
     }
 
-    public function edit(string $id)
-    {
-        //
-    }
-
     public function update(Request $request, string $id)
     {
         //

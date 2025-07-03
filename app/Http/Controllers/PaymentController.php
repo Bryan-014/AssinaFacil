@@ -43,9 +43,12 @@ class PaymentController extends ValidateController
 
     public function store(Request $request)
     {
+        $contract = Contract::find($request->route('contract_id'));
         Payment::create([
             'contract_id' => $request->route('contract_id'),
-            'pay_date' => now()
+            'pay_date' => now(),
+            'value' => $contract->plan->price,
+            'plan_id' => $contract->plan_id
         ]);
         
         session()->flash('alert', [

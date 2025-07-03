@@ -61,9 +61,7 @@ Route::middleware(['auth', 'ValidOnlyAdmin'])->group(function () {
 });
 
 Route::middleware(['auth', 'ValidAdmin'])->group(function () {
-    Route::get('/admin', function() {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
     
     Route::get('/clients', [UserController::class, 'clients'])->name('clients.index');
     Route::get('/clients/{id}/show', [UserController::class, 'show'])->name('clients.show');

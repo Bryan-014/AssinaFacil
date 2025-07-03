@@ -39,7 +39,7 @@
                     <div class="wrapper-inputs">
                         <div class="upload-container">
                             <img id="preview" class="image-preview" src="{{ asset('storage/uploads/pic.svg') }}" alt="Pré-visualização da imagem">
-                            <input type="file" id="foto" class="file-input" accept="image/*" onchange="previewImagem(event)">
+                            <input type="file" id="foto" name="picService" class="file-input" accept="image/*" onchange="previewImagem(event)">
                             <label for="foto" class="primary-btn">Escolher Foto</label>
                         </div>
                         <div class="subs-inputs">

@@ -16,7 +16,8 @@ class ServiceController extends ValidateController
         'description' => 'required',
         'base_price' => 'required|numeric',
         'base_duration' => 'required|numeric',
-        'duration_type' => 'required'
+        'duration_type' => 'required',
+        'picService' => 'file|mimes:jpg,jpeg,png|max:2048',
     ];
 
     protected $validationMessages = [
@@ -64,6 +65,13 @@ class ServiceController extends ValidateController
             'duration' => $request->base_duration,
             'duration_type' => $request->duration_type
         ]);
+
+        $file = $request->file('picService');
+        if ($file) {
+            $extension = $file->getClientOriginalExtension();
+            $fileName = $service->id . '.' . $extension;
+            $path = $file->storeAs('uploads', $fileName, 'public');
+        }
 
         $service->base_plan_id = $defPlan->id;
 
@@ -160,6 +168,13 @@ class ServiceController extends ValidateController
                 $defPlan->duration_type = $request->duration_type;
 
                 $defPlan->save();
+            }
+
+            $file = $request->file('picService');
+            if ($file) {
+                $extension = $file->getClientOriginalExtension();
+                $fileName = $service->id . '.' . $extension;
+                $path = $file->storeAs('uploads', $fileName, 'public');
             }
             
             session()->flash('alert', [

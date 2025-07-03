@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -29,6 +30,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = Auth::user();
+
+        if ($request->email == $request->password) {
+            Cookie::queue('def_pass', true, 60);
+        }
     
         if ($user->role_id == env('DEALER_ROLE_ID', 'role_id') || $user->role_id == env('ADMIN_ROLE_ID', 'role_id')) {
             return redirect()->route('admin.dashboard');

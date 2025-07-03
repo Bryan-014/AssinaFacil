@@ -24,7 +24,7 @@
             <br>
             <div class="wrapper-flex">
                 <span><b>Data do Pagamento: </b>{{$payment->mask_pay_date}}</span>
-                <span><b>Valor: </b>{{$payment->contract->plan->mask_price}}</span>
+                <span><b>Valor: </b>{{$payment->mask_value}}</span>
                 <span><b>Plano: </b>{{$payment->contract->plan->description}}</span>
             </div>            
         </div>
