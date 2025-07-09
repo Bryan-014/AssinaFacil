@@ -19,7 +19,7 @@
             <div class="cards-content">
                 @if (count($services) != 0)
                     @foreach($services as $service) 
-                        <x-service-card :name="$service->name" :price="$service->base_plan->mask_price" :id="$service->id" />
+                        <x-service-card :img="$service->url_image" :name="$service->name" :price="$service->base_plan->mask_price" :id="$service->id" />
                     @endforeach
                 @else
                     <div class="center-info">

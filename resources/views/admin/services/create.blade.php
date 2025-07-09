@@ -37,6 +37,15 @@
                             <img id="preview" class="image-preview" src="{{ asset('storage/uploads/pic.svg') }}" alt="Pré-visualização da imagem">
                             <input type="file" id="foto" name="picService" class="file-input" accept="image/*" onchange="previewImagem(event)">
                             <label for="foto" class="primary-btn">Escolher Foto</label>
+                            <p class="danger-info">
+                                @php
+                                    if ($errors->get('picService')) {
+                                        foreach ($errors->get('picService') as $message) {
+                                            echo($message);
+                                        }
+                                    }
+                                @endphp
+                            </p>
                         </div>
                         <div class="subs-inputs">
                             <x-primary-input type="text" name="name" label="Serviço" :messages="$errors->get('name')" :oldValue="old('name')"/>

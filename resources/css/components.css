@@ -131,6 +131,10 @@
     }
 }
 
+.danger-info {
+    color: var(--danger-color);
+}
+
 .wrapper-flex span{
     color: var(--text-color-1);
 }

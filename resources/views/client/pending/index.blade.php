@@ -23,7 +23,7 @@
                             @foreach ($contracts as $contract)
                                 <div class="pend-service" id="redirect-cont{{$contract->id}}">
                                     <div class="img-service">
-                                        <img src="{{asset('storage/uploads/pic.svg')}}" alt="">
+                                        <img src="{{ asset($contract->plan->service->url_image) }}" alt="">
                                     </div>
                                     <div class="vert-center">
                                         <div class="services-texts">
@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="plano">
                                         <div class="info-plano">
-                                            <span><b>Plano:</b> {{$contract_select->plan->duration_type}}</span>
+                                            <span><b>Plano:</b> {{$contract_select->plan->description}}</span>
                                         </div>
                                         <span class="value">
                                             {{$contract_select->plan->mask_price}}

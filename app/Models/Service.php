@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\HasUuid;
+use Illuminate\Support\Facades\Storage;
 
 class Service extends Model
 {
@@ -34,5 +35,20 @@ class Service extends Model
     
     public function contract() {
         return $this->belongsTo(Contract::class);        
+    }
+
+    public function getUrlImageAttribute () {
+        $default = asset('storage/uploads/pic.svg');
+
+        $extensions = ['jpg', 'jpeg', 'png', 'svg'];
+
+        foreach ($extensions as $ext) {
+            $path = "uploads/{$this->id}.{$ext}";
+            if (Storage::disk('public')->exists($path)) {
+                return asset("storage/{$path}");
+            }
+        }
+
+        return $default;
     }
 }

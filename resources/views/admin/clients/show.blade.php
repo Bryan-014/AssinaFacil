@@ -31,7 +31,7 @@
                                 <a class="service-link" href="{{route('clients.contract', ['id' => $user->id, 'contract_id' => $contract->id])}}">
                                     <div class="service">
                                         <div class="img-service">
-                                            <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+                                            <img src="{{ asset($contract->plan->service->url_image) }}" alt="">
                                         </div>
                                         <div class="services-texts">
                                             <div class="title">
@@ -72,7 +72,7 @@
                                         </div>
                                     </div>
                                     <div class="service-img">
-                                        <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+                                        <img src="{{ asset($contract_selected->plan->service->url_image) }}" alt="">
                                     </div>
                                 </div>
                                 <div class="add-info">

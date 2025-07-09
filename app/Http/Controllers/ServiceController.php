@@ -17,7 +17,7 @@ class ServiceController extends ValidateController
         'base_price' => 'required|numeric',
         'base_duration' => 'required|numeric',
         'duration_type' => 'required',
-        'picService' => 'file|mimes:jpg,jpeg,png|max:2048',
+        'picService' => 'file|mimes:jpg,jpeg,png|dimensions:min_width=300,min_height=300',
     ];
 
     protected $validationMessages = [
@@ -29,6 +29,9 @@ class ServiceController extends ValidateController
         'base_duration.required' => 'O campo Tempo do Plano é obigatório',
         'base_duration.numeric' => 'O campo Tempo do Plano deve conter um valor numérico',
         'duration_type.required' => 'O campo Tipo de Renovação é obigatório',
+        'picService.file' => 'O campo Imagem deve ser um arquivo válido.',
+        'picService.mimes' => 'O campo Imagem deve ser um arquivo do tipo: jpg, jpeg ou png.',
+        'picService.dimensions' => 'A imagem deve estar em um formato retangular.',
     ];
 
     public function index()
@@ -140,9 +143,8 @@ class ServiceController extends ValidateController
 
             $service->name = $request->name;
             $service->description = $request->description;
-            
             $service->save();
-            
+
             switch ($request->duration_type) {
                 case 1:
                     $modality = 'Diário';
@@ -162,21 +164,23 @@ class ServiceController extends ValidateController
                     break;
             }
 
-            if (!($defPlan->price == $request->base_price && $defPlan->duration == $request->base_duration && $defPlan->duration_type == $modality)) {
-                $defPlan->price = $request->base_price;
-                $defPlan->duration = $request->base_duration;
-                $defPlan->duration_type = $request->duration_type;
-
-                $defPlan->save();
+            $defPlan = Plan::find($service->base_plan_id);
+            if ($defPlan) {
+                if (!($defPlan->price == $request->base_price && $defPlan->duration == $request->base_duration && $defPlan->duration_type == $modality)) {
+                    $defPlan->price = $request->base_price;
+                    $defPlan->duration = $request->base_duration;
+                    $defPlan->duration_type = $request->duration_type;
+                    $defPlan->save();
+                }
             }
-
+            
             $file = $request->file('picService');
             if ($file) {
                 $extension = $file->getClientOriginalExtension();
                 $fileName = $service->id . '.' . $extension;
                 $path = $file->storeAs('uploads', $fileName, 'public');
             }
-            
+                    
             session()->flash('alert', [
                 'msg' => 'Serviço atualizado com sucesso!',
                 'title' => 'Sucesso'

@@ -19,7 +19,7 @@
             <div class="view">
                 <div class="view-content">
                     <div class="service-image">
-                        <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+                        <img src="{{ asset($service->url_image) }}" alt="">
                     </div>
                     <div class="service-details">
                         <div class="text-content">

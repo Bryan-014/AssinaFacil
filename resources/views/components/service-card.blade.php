@@ -1,6 +1,6 @@
 <div class="card-service">
     <div class="card-img">
-        <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+        <img src="{{ asset($img) }}" alt="">
     </div>
     <div class="card-cont">
         <p class="title">{{$name}}</p>
