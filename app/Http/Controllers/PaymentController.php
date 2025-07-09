@@ -91,15 +91,13 @@ class PaymentController extends ValidateController
     }
 
     public function index()
-    {
-        $this->verifyInvoices();
+    {        
         $payments = Payment::whereNotNull('pay_date')->paginate(10);
         return view('admin.payments.index', compact('payments'));
     }
 
     public function history()
-    {
-        $this->verifyInvoices();
+    {        
         $userId = Auth::user()->id;
 
         $contracts = Contract::where('client_id', $userId)->get();
@@ -116,8 +114,7 @@ class PaymentController extends ValidateController
     }
 
     public function create(Request $request)
-    {
-        $this->verifyInvoices();
+    {        
         $userId = Auth::user()->id;
         $contracts = Contract::where('client_id', $userId)->get();
         $contract = Contract::find($request->route('id'));    
@@ -150,23 +147,43 @@ class PaymentController extends ValidateController
     }
 
     public function show(Request $request, string $id)
-    {
-        $this->verifyInvoices();
+    {        
         $payment = Payment::find($id);
         if ($request->route()->getName() == 'payments.show') {
             return view('client.history.show', ['payment' => $payment]);
         }
         return view('admin.payments.show', ['payment' => $payment]);
-    }    
+    }   
+    
+    public function store() {
+        if ($this->verifyInvoices()) {
+            session()->flash('alert', [
+                'msg' => 'Pagamento efetuado com sucesso!',
+                'title' => 'Suceesso'
+            ]);
+        }
+        return redirect()->route('pending.index');
+    } 
 
     private function verifyInvoices() {
         $payments = Payment::whereNull('pay_date')->get();
+        $return = false;
 
         foreach ($payments as $payment) {
             if ($this->getInvoice($payment->invoice_id)->status == 'PAID') {
                 $payment->pay_date = now();
-                $payment->save;
+                $payment->save();
+                $return = true;
             }            
+            //REMOVE FOR PROD
+            
+            $payment->pay_date = now();
+            $payment->save();
+            $return = true;
+            
+            // dd($payments);
+            // --------------
         }
+        return $return;
     }
 }

@@ -78,13 +78,15 @@
                                         </span>
                                     </div>
                                     <div class="center-btn">
-                                        <a href="{{$invoice->payment_options->bank_slip->url}}" download>
-                                            <button class="primary-btn">Baixar Boleto</button>
-                                        </a>
-                                        {{-- <form action="{{route('payments.store', ['contract_id' => $contract_select->id])}}" method="post">
-                                            @csrf
-                                            <input type="submit" class="primary-btn" value="Efetuar Pagamento">
-                                        </form> --}}
+                                        <div class="inpts-pay">
+                                            <a href="{{$invoice->payment_options->bank_slip->url}}" download>
+                                                <button class="primary-btn">Baixar Boleto</button>
+                                            </a>
+                                            <form action="{{route('payment.update')}}" method="post">
+                                                @csrf
+                                                <input type="submit" class="primary-btn" value="Validar Pagamento">
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="service-img">

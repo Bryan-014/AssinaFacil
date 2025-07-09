@@ -131,6 +131,12 @@
     }
 }
 
+.inpts-pay {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .danger-info {
     color: var(--danger-color);
 }

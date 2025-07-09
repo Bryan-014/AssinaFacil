@@ -97,6 +97,7 @@ Route::middleware(['auth', 'ValidClient'])->group(function () {
     Route::get('/payments/my', [PaymentController::class, 'history'])->name('payments.history');
     Route::get('/payments/my/{id}/show', [PaymentController::class, 'show'])->name('payments.show');
     Route::post('/payment/{contract_id}', [PaymentController::class, 'store'])->name('payments.store');
+    Route::post('/payment/update/', [PaymentController::class, 'update'])->name('payment.update');
 });
 
 require __DIR__.'/auth.php';
