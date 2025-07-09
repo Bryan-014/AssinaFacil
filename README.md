@@ -56,3 +56,14 @@ O sistema será composto por dois ambientes principais:
 ---
 
 > Projeto desenvolvido para automatizar e simplificar a gestão de serviços recorrentes em empresas de tecnologia.
+
+## 4. Lista de Comandos Para Executar o sistema
+
+- npm install
+- composer install
+- cp .env.example .env
+- php artisan key:generate
+- php artisan migrate
+- php artisan db:seed (opcional)
+- npm run dev
+- php artisan serve

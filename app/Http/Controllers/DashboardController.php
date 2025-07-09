@@ -39,10 +39,13 @@ class DashboardController extends Controller
         $now = Carbon::now();
         $fiveMonthsAgo = $now->copy()->subMonths(4)->startOfMonth();
 
+        //IF MYSQL = DATE_FORMAT(pay_date, '%m/%Y') 
+        //IF SQLITE = strftime('%m/%Y', pay_date) 
+
         $payments = Payment::where('pay_date', '>=', $fiveMonthsAgo)
             ->where('pay_date', '<=', $now)
             ->select(
-                DB::raw("DATE_FORMAT(pay_date, '%m/%Y') as month"),
+                DB::raw("strftime('%m/%Y', pay_date) as month"),
                 DB::raw("SUM(value) as total")
             )
             ->groupBy('month')

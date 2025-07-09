@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dealer_group', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('dealer_id')->constrained('users')->onDelete('cascade');
+            $table->string('dealer_id');
             $table->json('client_list');
             $table->timestamps();
         });
