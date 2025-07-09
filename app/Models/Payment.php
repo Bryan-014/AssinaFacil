@@ -22,6 +22,7 @@ class Payment extends Model
         'id',
         'contract_id',
         'pay_date',
+        'invoice_id',
         'value',
         'plan_id'
     ];

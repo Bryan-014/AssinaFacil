@@ -12,7 +12,9 @@ class UserController extends ValidateController
 {
     protected $validationRules = [
         'user' => 'required|min:3',
-        'email' => 'required|email',
+        'email' => 'email',
+        'tell' => 'min:10|max:14',
+        'document' => 'required'
     ];
 
     protected $validationMessages = [
@@ -41,9 +43,11 @@ class UserController extends ValidateController
         $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao cadastrar o '.$dataReturn[0]);   
         
         $user = new User();
-
+        
         $user->user = $request->user;
         $user->email = $request->email;
+        $user->tell = $request->tell;
+        $user->document = $request->document;
         $user->password = Hash::make($request->email);
         
         $user->role_id = $request->route()->getName() == 'clients.store' ? env('CLIENT_ROLE_ID') : env('DEALER_ROLE_ID');
@@ -84,32 +88,32 @@ class UserController extends ValidateController
         return redirect()->route($dataReturn[1].'.index');
     }
 
-    public function update(Request $request, string $id)
-    {
-        $dataReturn = $this->check_role($request->route()->getName(), 'update');
+    // public function update(Request $request, string $id)
+    // {
+    //     $dataReturn = $this->check_role($request->route()->getName(), 'update');
 
-        $user = User::find($id);
-        if (isset($user)) {
-            $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao atualizar o '.$dataReturn[0]);
+    //     $user = User::find($id);
+    //     if (isset($user)) {
+    //         $this->validate($request, $this->validationRules, $this->validationMessages, 'Erro ao atualizar o '.$dataReturn[0]);
 
-            $user->user = $request->user;
-            $user->email = $request->email;
+    //         $user->user = $request->user;
+    //         $user->email = $request->email;
             
-            $user->save();
+    //         $user->save();
 
-            session()->flash('alert', [
-                'msg' => $dataReturn[0].' atualizado com sucesso!',
-                'title' => 'Sucesso'
-            ]);
-            return redirect()->route($dataReturn[1].'.index');
-        }
+    //         session()->flash('alert', [
+    //             'msg' => $dataReturn[0].' atualizado com sucesso!',
+    //             'title' => 'Sucesso'
+    //         ]);
+    //         return redirect()->route($dataReturn[1].'.index');
+    //     }
         
-        session()->flash('alert', [
-            'msg' => $dataReturn[0].' não encontrado!',
-            'title' => 'Atenção'
-        ]);
-        return redirect()->route($dataReturn[1].'.index');
-    }
+    //     session()->flash('alert', [
+    //         'msg' => $dataReturn[0].' não encontrado!',
+    //         'title' => 'Atenção'
+    //     ]);
+    //     return redirect()->route($dataReturn[1].'.index');
+    // }
 
     public function destroy(Request $request, string $id)
     {

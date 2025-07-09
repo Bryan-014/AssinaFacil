@@ -106,6 +106,35 @@
     }
 }
 
+.pix-info {
+    width: 100%;
+    margin-top: 5px;
+    border: 1px solid #a09e9e;
+    border-radius: 6px;
+    word-wrap: break-word;
+    padding: 8px;
+
+    & .head_info {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    & #btn-copiar {
+        background-image: url('../img/lists/edit-wt.svg');
+        width: 25px;
+        height: 25px;
+        border: none;
+        background-color: var(--primary-dark-color);
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 4px;
+    }
+}
+
+.wrapper-flex span{
+    color: var(--text-color-1);
+}
+
 .modal {
     position: fixed;
     top: 50%;

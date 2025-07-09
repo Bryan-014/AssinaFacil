@@ -24,7 +24,7 @@ class ContractController extends ValidateController
     {
         Contract::create([
             'plan_id' => $request->route('plan_id'),
-            'dealer_group_id' => 'a8f23ee1-53ab-11f0-8862-641c678d852c',
+            'dealer_group_id' => '9a1b8e25-5ba2-11f0-8862-641c678d852c',
             'client_id' => $this->get_user_id(),
             'contract_date' => now(),
             'add_infos' => '{}'

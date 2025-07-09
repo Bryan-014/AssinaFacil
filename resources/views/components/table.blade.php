@@ -44,6 +44,8 @@
                                 <div class="modal-body">
                                     <x-primary-input type="text" name="user" label="Nome" :messages="$errors->get('user')" :oldValue="old('user')"/>
                                     <x-primary-input type="email" name="email" label="Email" :messages="$errors->get('email')" :oldValue="old('email')"/>
+                                    <x-primary-input type="text" name="tell" label="Telefone" :messages="$errors->get('tell')" :oldValue="old('tell')"/>
+                                    <x-primary-input type="text" name="document" label="CPF/CNPJ" :messages="$errors->get('document')" :oldValue="old('document')"/>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="danger-btn" data-bs-dismiss="modal">Fechar</button>

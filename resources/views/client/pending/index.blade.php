@@ -19,7 +19,7 @@
             <div class="d-flex mb-3 mt-2">
                 <div class="list-cont">
                     @if (count($contracts) != 0) 
-                    <div class="pend-services-container">
+                        <div class="pend-services-container">
                             @foreach ($contracts as $contract)
                                 <div class="pend-service" id="redirect-cont{{$contract->id}}">
                                     <div class="img-service">
@@ -78,16 +78,41 @@
                                         </span>
                                     </div>
                                     <div class="center-btn">
-                                        <form action="{{route('payments.store', ['contract_id' => $contract_select->id])}}" method="post">
+                                        <a href="{{$invoice->payment_options->bank_slip->url}}" download>
+                                            <button class="primary-btn">Baixar Boleto</button>
+                                        </a>
+                                        {{-- <form action="{{route('payments.store', ['contract_id' => $contract_select->id])}}" method="post">
                                             @csrf
                                             <input type="submit" class="primary-btn" value="Efetuar Pagamento">
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </div>
                                 <div class="service-img">
-                                    <img src="{{ asset('storage/uploads/pic.svg') }}" alt="">
+                                    <img src="{{ $qrcode }}" alt="">
                                 </div>
                             </div>
+                            <div class="pix-info">
+                                <div class="head_info">
+                                    <center>
+                                        <h4>PIX COPIA E COLA</h4>
+                                    </center>
+                                    <button id="btn-copiar"></button>
+                                </div>
+                                <p>{{$invoice->pix->emv}}</p>
+                            </div>
+                            <script>
+                                const pixCode = "{{$invoice->pix->emv}}";
+
+                                const botao = document.getElementById("btn-copiar");
+
+                                botao.addEventListener("click", function() {
+                                    navigator.clipboard.writeText(pixCode).then(function() {
+                                        console.log("Código Pix copiado com sucesso!");
+                                    }, function(err) {
+                                        console.log("Falha ao copiar: " + err);
+                                    });
+                                });
+                            </script>
                         @else
                             <div class="center-info">
                                 <span>
@@ -99,7 +124,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
 @endsection
 
 @section('js-resources')    

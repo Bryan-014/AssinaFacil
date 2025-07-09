@@ -6,20 +6,101 @@ use App\Models\Contract;
 use App\Models\Payment;
 
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use GuzzleHttp\Client;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Writer\SvgWriter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PaymentController extends ValidateController
 {
+    private $API_BASE_URL = 'https://matls-clients.api.stage.cora.com.br';
+    private $API_CLIENT_ID = 'int-6TIkerwUCI08yTXuRZNsTO';
+    private $API_CERT = 'C:/Users/Bryan Rosa/Documents/cert_key_cora/cert_key_cora_stage_2025_07_07/certificate.pem';
+    private $API_KEY = 'C:/Users/Bryan Rosa/Documents/cert_key_cora/cert_key_cora_stage_2025_07_07/private-key.key';
+
+    private function getApiToken() {
+        $client = new Client();
+
+        $response = $client->request('POST', $this->API_BASE_URL.'/token', [
+            'form_params' => [
+                'grant_type' => 'client_credentials',
+                'client_id' => $this->API_CLIENT_ID
+            ],
+            'cert' => $this->API_CERT,
+            'ssl_key' => $this->API_KEY,
+        ]);
+
+        return json_decode($response->getBody()->getContents())->access_token;
+    }
+
+    private function generateInvoice(Contract $contract) {
+        $client = new Client();
+
+        $due_date = Carbon::createFromFormat('d/m/Y', $contract->calc_validity());
+
+        $response = $client->request('POST', $this->API_BASE_URL.'/v2/invoices/', [
+            'body' => '
+            {
+                "code": "'.(string) Str::uuid().'",
+                "customer": {
+                    "name": "'.$contract->client->user.'",
+                    "email": "'.$contract->client->email.'",
+                    "document": {
+                        "identity": "'.$contract->client->document.'",
+                        "type": "CPF"
+                    }
+                },
+                "services": [{
+                    "name": "'.$contract->plan->service->name.'",
+                    "description": "'.$contract->plan->service->description.'",
+                    "amount": '.$contract->plan->unmask_price.'
+                }],
+                "payment_terms": {
+                    "due_date": "'.$due_date->format('Y-m-d').'"
+                },
+                "payment_forms":["BANK_SLIP","PIX"]
+            }',
+            'headers' => [
+                'Idempotency-Key' => (string) Str::uuid(),
+                'Authorization' => 'Bearer '.$this->getApiToken(),
+                'content-type' => 'application/json',
+            ],
+            'cert' => $this->API_CERT,
+            'ssl_key' => $this->API_KEY,
+        ]);
+
+        return json_decode($response->getBody()->getContents());
+    }
+
+    private function getInvoice(string $invoice_id) {
+        $client = new Client();
+
+        $response = $client->request('GET', $this->API_BASE_URL.'/v2/invoices/'.$invoice_id, [
+            'headers' => [
+                'Idempotency-Key' => (string) Str::uuid(),
+                'Authorization' => 'Bearer '.$this->getApiToken(),
+                'content-type' => 'application/json',
+            ],
+            'cert' => $this->API_CERT,
+            'ssl_key' => $this->API_KEY,
+        ]);
+
+        return json_decode($response->getBody()->getContents());
+    }
+
     public function index()
     {
-        $payments = Payment::paginate(10);
+        $this->verifyInvoices();
+        $payments = Payment::whereNotNull('pay_date')->paginate(10);
         return view('admin.payments.index', compact('payments'));
     }
 
     public function history()
     {
-        $user = Auth::user();
-        $userId = $user->id;
+        $this->verifyInvoices();
+        $userId = Auth::user()->id;
 
         $contracts = Contract::where('client_id', $userId)->get();
 
@@ -27,7 +108,7 @@ class PaymentController extends ValidateController
 
         foreach ($contracts as $contract) {
             foreach ($contract->payments as $payment) {
-                array_push($payments, $payment);                
+                if ($payment->pay_date != null) array_push($payments, $payment);                                
             }
         }
 
@@ -36,34 +117,56 @@ class PaymentController extends ValidateController
 
     public function create(Request $request)
     {
-        $contracts = Contract::all();
-        $contract = Contract::find($request->route('id'));
-        return view('client.pending.index', ['contracts' => $contracts, 'contract_select' => $contract]);
-    }
-
-    public function store(Request $request)
-    {
-        $contract = Contract::find($request->route('contract_id'));
-        Payment::create([
-            'contract_id' => $request->route('contract_id'),
-            'pay_date' => now(),
-            'value' => $contract->plan->price,
-            'plan_id' => $contract->plan_id
-        ]);
+        $this->verifyInvoices();
+        $userId = Auth::user()->id;
+        $contracts = Contract::where('client_id', $userId)->get();
+        $contract = Contract::find($request->route('id'));    
         
-        session()->flash('alert', [
-            'msg' => 'Pagamento realizado com sucesso!',
-            'title' => 'Suceesso'
-        ]);
-        return redirect()->route('pending.index');
+        $unpayInvoice = Payment::where('pay_date', null)
+            ->where('contract_id', $request->route('id'))->get();
+                    
+        if (count($unpayInvoice) == 0) {
+            $invoice_infos = $this->generateInvoice($contract);
+    
+            Payment::create([
+                'contract_id' => $request->route('id'),
+                'pay_date' => null,
+                'value' => $contract->plan->price,
+                'plan_id' => $contract->plan_id,
+                'invoice_id' => $invoice_infos->id
+            ]);
+        } else {
+            $invoice_infos = $this->getInvoice($unpayInvoice[0]->invoice_id);
+        }
+
+        $qrcode = new Builder(
+            writer: new SvgWriter(),
+            data: $invoice_infos->pix->emv,
+            size: 300,
+            margin: 10
+        );
+
+        return view('client.pending.index', ['contracts' => $contracts, 'contract_select' => $contract, 'qrcode' => $qrcode->build()->getDataUri(), 'invoice' => $invoice_infos]);
     }
 
     public function show(Request $request, string $id)
     {
+        $this->verifyInvoices();
         $payment = Payment::find($id);
         if ($request->route()->getName() == 'payments.show') {
             return view('client.history.show', ['payment' => $payment]);
         }
         return view('admin.payments.show', ['payment' => $payment]);
+    }    
+
+    private function verifyInvoices() {
+        $payments = Payment::whereNull('pay_date')->get();
+
+        foreach ($payments as $payment) {
+            if ($this->getInvoice($payment->invoice_id)->status == 'PAID') {
+                $payment->pay_date = now();
+                $payment->save;
+            }            
+        }
     }
 }

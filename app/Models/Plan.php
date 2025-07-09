@@ -37,4 +37,8 @@ class Plan extends Model
     public function getMaskPriceAttribute() {
         return 'R$ '.number_format($this->price, 2, ',', '.');
     }
+
+    public function getUnmaskPriceAttribute() {
+        return (int) number_format($this->price, 2, '', '.');
+    }
 }

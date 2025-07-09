@@ -43,8 +43,12 @@ class Contract extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function getValidPaymentsAttribute() {
+        return $this->payments()->whereNotNull('pay_date')->get();
+    }
+
     public function calc_validity() {        
-        $payment = $this->payments()->latest('pay_date')->first();
+        $payment = $this->payments()->whereNotNull('pay_date')->latest('pay_date')->first();
         if ($payment) {
             $validity = Carbon::parse($payment->pay_date);
             switch ($this->plan->duration_type) {

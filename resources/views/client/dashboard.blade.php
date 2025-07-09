@@ -49,7 +49,7 @@
                             </div>
                             <div class="plano">
                                 <div class="info-plano">
-                                    <span><b>Plano:</b> {{$contract_selected->plan->duration_type}}</span>
+                                    <span><b>Plano:</b> {{$contract_selected->plan->description}}</span>
                                 </div>
                                 <span class="value">
                                     {{$contract_selected->plan->mask_price}}

@@ -102,7 +102,8 @@
                                         ];
                                     @endphp
                                     <h4>Pagamentos</h4>
-                                    <x-table table="payment" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$contract_selected->payments"/>
+                                    {{-- {{dd($contract_selected->valid_payments)}} --}}
+                                    <x-table table="payment" :tableConfig="$tableConfig" :showValues="$show" :columns="$columns" :values="$contract_selected->valid_payments"/>
                                 </div>
                             @else 
                                 <div class="center-info">
